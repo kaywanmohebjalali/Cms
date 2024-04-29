@@ -1,10 +1,6 @@
 
+const Home = () => {
+  return <div>home</div>
+};
 
-
-export default function Home() {
-  return (
-    <>
-     <div className="text">Home</div>
-    </>
-  );
-}
+export default Home;
