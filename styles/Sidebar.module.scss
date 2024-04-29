@@ -2,7 +2,46 @@
 .main{
     width: 100%;
     height: 100%;
-   
+    padding: 0 2rem;
+     
+}
+
+.items{
+    font-size: 1.6rem;
+ padding:6rem 0rem;
+ display: flex;
+ flex-direction: column;
+ gap: 4rem;
+}
+
+.item{
+ display: flex;
+
+ align-items: center;
+
+ gap: 1rem;
+}
+
+.point{
+ width: 2px;
+ height: 2px;   
+ padding: 3px;
+ border-radius: 100%;
+ background-color: transparent;
+}
+
+.exit{
+ border-top: 2px solid rgba(202, 196, 196,0.4);
+ padding-top: 2rem;
 
 
+}
+
+.active{
+    color: var(--color-third);
+    
+}
+
+.activePoint{
+    background-color: var(--color-third);
 }

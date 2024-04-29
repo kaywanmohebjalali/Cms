@@ -5,7 +5,7 @@ import Navbar from "@/components/modules/navbar/Navbar";
 
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <section className="app" >
+  return <section className="app container" >
 
     <div className="app-Sidebar">
 

@@ -3,5 +3,10 @@
         "activityBar.background": "#482128",
         "titleBar.activeBackground": "#652F38",
         "titleBar.activeForeground": "#FCF9F9"
-    }
+    },
+    "cSpell.words": [
+        "تماس",
+        "خروج",
+        "درباره"
+    ]
 }

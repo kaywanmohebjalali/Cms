@@ -83,7 +83,7 @@ body {
   grid-template-rows: repeat(10, 1fr);
   background-color: var(--color-bg);
 
-  @media screen and (max-width:700px) {
+  @media screen and (max-width:900px) {
     grid-template-columns: repeat(7, 1fr);
   }
 
@@ -95,7 +95,8 @@ body {
   grid-row: 1/-1;
 
 
-  @media screen and (max-width:700px) {
+
+  @media screen and (max-width:900px) {
     grid-column: 1/-1;
     grid-row: 1/2;
 
@@ -108,12 +109,23 @@ body {
 
   grid-column: 2/-1;
   grid-row: 1/-1;
+ border-right: 2px solid rgba(202, 196, 196,0.4);
 
-
-  @media screen and (max-width:700px) {
+  @media screen and (max-width:900px) {
     grid-column: 1/-1;
     grid-row: 2/-1;
 
   }
 
+}
+
+.logo{
+
+  display: flex;
+  align-items: center;
+  gap:2rem
+}
+
+.text-logo{
+  font-size: 1.5rem;
 }
