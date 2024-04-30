@@ -2,7 +2,9 @@ import React from 'react'
 
 const User = () => {
   return (
-    <div>User</div>
+    <section className='user'>
+        <img className='img-user' src="./images/avatar/user.jpg" alt="" />
+    </section>
   )
 }
 

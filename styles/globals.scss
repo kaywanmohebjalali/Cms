@@ -184,6 +184,10 @@ body {
   width: 70%;
 }
 
+@media screen and (max-width:400px) {
+  width: 75%;
+}
+
 
 }
 
@@ -194,6 +198,13 @@ body {
   font-size: 1.7rem;
   width: 90%;
   color: var(--color-gray);
+  @media screen and (max-width:600px) {
+    font-size: 1.2rem;
+  }
+
+  @media screen and (max-width:400px) {
+    padding:0.8rem 1.5rem;
+  }
 }
 
 .search-icon{
@@ -203,7 +214,42 @@ left: 10px;
 top: 50%;
 transform: translateY(-50%);
 cursor: pointer;
+
+@media screen and (max-width:400px) {
+  font-size: 1.4rem !important;
+}
 }
 .search-icon:hover{
   color: var(--color-third);
+}
+
+
+.user{
+
+  width: 20%;
+  height: auto;
+  margin-right: auto;
+
+  display: flex;
+  justify-content: flex-end;
+
+  @media screen and (max-width:600px) {
+    width: 15%;
+  }
+  
+}
+
+.img-user{
+  
+  width: 50%;
+  height: auto;
+  border-radius: 100%;
+
+  @media screen and (max-width:600px) {
+    width: 70%;
+  }
+
+  @media screen and (max-width:400px) {
+    width: 100%;
+  }
 }
