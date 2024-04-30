@@ -1,8 +1,15 @@
 import React from 'react'
+import styled from '@/styles/Navbar.module.scss'
+import User from '../user/User'
+import Search from '../search/Search'
+
 
 const Navbar = () => {
   return (
-    <div>Navbar</div>
+    <section className={`${styled.navbar}`}>
+      <Search/>
+      <User/>
+    </section>
   )
 }
 
