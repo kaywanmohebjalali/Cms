@@ -21,7 +21,7 @@ const Sidebar = () => {
       <FontAwesomeIcon
         icon={faHouse}
       />
-         <p>صحفه اصلی</p>
+         <p className={`${styled.title}`}>صحفه اصلی</p>
       </div>
 
       <div className={`${styled.item} `}>
@@ -29,7 +29,7 @@ const Sidebar = () => {
       <FontAwesomeIcon
         icon={faTag}
       />
-         <p> تماس با ما</p>
+         <p className={`${styled.title}`}> تماس با ما</p>
       </div>
 
 
@@ -38,7 +38,7 @@ const Sidebar = () => {
       <FontAwesomeIcon
         icon={faBookmark}
       />
-         <p> درباره ی ما</p>
+         <p className={`${styled.title}`}> درباره ی ما</p>
       </div>
 
    
@@ -48,7 +48,7 @@ const Sidebar = () => {
       <FontAwesomeIcon
         icon={faLock}
       />
-         <p>خروج</p>
+         <p className={`${styled.title}`}>خروج</p>
       </div>
 
 
