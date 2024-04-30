@@ -6,7 +6,7 @@ import Search from '../search/Search'
 
 const Navbar = () => {
   return (
-    <section className={`${styled.navbar}`}>
+    <section className={`${styled.navbar} container`}>
       <Search/>
       <User/>
     </section>

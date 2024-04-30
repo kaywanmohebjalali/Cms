@@ -7,15 +7,15 @@
   --color-white: #fff;
   --color-gray:#888;
   --color-gray-sec:rgba(201, 194, 194,0.4);
-  --box-shadow-blue: 0px 1px 2px blue,
-    0px -1px 6px blue,
-    0px -1px 12px blue;
-  --box-shadow-green: 0px 1px 2px green,
-    0px -1px 6px green,
-    0px -1px 12px green;
-  --box-shadow-red: 0px 1px 2px red,
-    0px -1px 6px red,
-    0px -1px 12px red;
+  --box-shadow-blue: 0px 1px 2px rgba(0, 0, 255,0.5),
+    0px -1px 6px rgba(0, 0, 255,0.5),
+    0px -1px 12px rgba(0, 0, 255,0.5);
+  --box-shadow-green: 0px 1px 5px rgba(0, 128, 0,0.5),
+    0px 0px 10px rgba(0, 128, 0,0.5),
+    0px 0px 20px rgba(0, 128, 0,0.5);
+  --box-shadow-red: 0px 1px 2px rgba(255, 0, 0,0.5),
+    0px -1px 6px rgba(255, 0, 0,0.5),
+    0px -1px 12px rgba(255, 0, 0,0.5);
 }
 
 * {
@@ -43,17 +43,20 @@ body {
   margin: auto;
 
   @media screen and (min-width:900px) {
-    padding: 4rem;
+    padding: 4rem 0;
+    width: 90%;
+  }
+
+  @media screen and (max-width:500px) {
+    padding:4rem 0.8rem;
   }
 
 
 
+
+
 }
 
-.main {
-  width: 85%;
-  padding-right: 4rem;
-}
 
 @font-face {
   font-family: 'shabnam';
@@ -240,16 +243,44 @@ cursor: pointer;
 }
 
 .img-user{
-  
+  max-width: 100px;
   width: 50%;
   height: auto;
   border-radius: 100%;
 
-  @media screen and (max-width:600px) {
+  @media screen and (max-width:700px) {
     width: 70%;
   }
 
-  @media screen and (max-width:400px) {
+  @media screen and (max-width:600px) {
     width: 100%;
+  }
+}
+
+
+
+
+.main{
+ 
+  height: auto;
+
+
+}
+
+.top-main{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin:4rem 0;
+
+  @media screen and (max-width:500px) {
+    font-size: 1rem;
+  }
+}
+
+.top-main h1{
+  font-size: 1.8rem;
+  @media screen and (max-width:500px) {
+    font-size: 1.4rem;
   }
 }
