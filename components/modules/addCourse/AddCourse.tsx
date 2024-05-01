@@ -5,6 +5,7 @@ import Form from '../form/Form'
 
 
 
+
 const AddCourse = () => {
   return (
     <>
@@ -18,7 +19,7 @@ const AddCourse = () => {
 </Modal.Open >
 <Modal.Window name='add-course'>
   
- <Form/>
+ <Form title='اطلاعات دوره رو وارد کنید' textButton='اصافه کردن دوره'/>
 </Modal.Window>
 
 </Modal>
