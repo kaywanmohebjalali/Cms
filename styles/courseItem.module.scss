@@ -1,15 +1,17 @@
 .courseItem{
     width: 100%;
-    
-    
+   
+ max-width: 900px;
     box-shadow: 1px 1px 4px var(--color-gray);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
+
+
     @media screen and (max-width:650px) {
-        width: 70%;
+        width: 90%;
         margin: auto;
         flex-direction: column;
         gap: 4rem;
@@ -73,7 +75,7 @@
 .title{
   
     font-size: 1.7rem;
-    background-color: red;
+   
     @media screen and (max-width:800px) {
         font-size: 1.5rem;
         

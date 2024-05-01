@@ -1,10 +1,17 @@
 .courses{
     background-color: var(--color-bg);
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    align-items: center;
     gap: 2rem;
     height: 60vh;
     overflow: scroll;
- 
+    
     padding: 4rem 2rem 10vh 2rem;
+    
+    @media screen  and (min-width:1150px) {
+        grid-template-columns: repeat(auto-fit,minmax(500px,1fr));    // flex-direction: column;
+        
+    }
+
+
 }

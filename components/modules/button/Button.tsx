@@ -13,7 +13,7 @@ interface typeProps {
 const Button = ({ children, width, height, color, backGroundColor, boxShadow }: typeProps) => {
     return (
         <>
-            <button>{children}</button>
+            <button>{children} </button>
             <style jsx>{`
       button {
         border:none;
