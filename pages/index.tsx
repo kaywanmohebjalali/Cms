@@ -11,7 +11,7 @@ const Home = () => {
       <h1>دوره ها</h1>
       <AddCourse/>
     </div>
-    <Courses filter={`${query?.filter}`}/>
+    <Courses filter={query?.filter}/>
 
   </section>
 };

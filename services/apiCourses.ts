@@ -8,9 +8,10 @@ interface typeCourse {
     }
 
 
-    export async function getCourses(filter:String) {
+    export async function getCourses(filter:String|undefined) {
    
-   
+    
+      
         try {
             let response;
             if(!filter){
