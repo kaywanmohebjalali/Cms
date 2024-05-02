@@ -5,9 +5,10 @@ import Search from '../search/Search'
 
 
 const Navbar = () => {
+  
   return (
     <section className={`${styled.navbar} container`}>
-      <Search/>
+      <Search />
       <User/>
     </section>
   )

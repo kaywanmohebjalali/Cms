@@ -2,9 +2,11 @@ import type { AppProps } from "next/app";
 import "@/styles/globals.scss";
 import Sidebar from "@/components/modules/sidebar/Sidebar";
 import Navbar from "@/components/modules/navbar/Navbar";
+import { useState } from "react";
 
 
 export default function App({ Component, pageProps }: AppProps) {
+  
   return <section className="app " >
 
     <div className="app-Sidebar ">
@@ -13,7 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
     </div>
 
    <main className="app-main container">
-   <Navbar/>
+   <Navbar />
   <Component {...pageProps} />
    </main>
 

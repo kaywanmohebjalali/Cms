@@ -26,6 +26,8 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
 
 
+
+
   async function CourseHandler(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
 
@@ -37,18 +39,17 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
       let img = courseImageRef?.current?.value
       img = courseImageRef.current.files[0]
 
+      
 
 
+   
 
       const readerImg = new FileReader()
       readerImg.readAsDataURL(courseImageRef?.current?.files[0])
+readerImg
       readerImg.onload = async () => {
         {
           let courseImage = readerImg?.result
-
-
-
-
 
 
           if (
@@ -67,9 +68,6 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
             response = await updateCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: course?._id }) as any
 
           }
-
-
-
 
           if (response?.statusCode == 201) {
             alert(`Course ${status}  successfully`)

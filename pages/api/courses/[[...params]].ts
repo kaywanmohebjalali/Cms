@@ -10,6 +10,8 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
   switch (req.method) {
     case "GET":
+      console.log('req :  ', req?.query);
+      
       const courses =await courseModel.find()
       return res.json(courses);
 

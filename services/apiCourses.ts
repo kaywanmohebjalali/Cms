@@ -8,11 +8,18 @@ interface typeCourse {
     }
 
 
-    export async function getCourses() {
+    export async function getCourses(filter:String) {
    
    
         try {
-            const response = await  fetch(`/api/courses`);
+            let response;
+            if(!filter){
+
+                 response = await  fetch(`/api/courses`);
+                }else{
+                response = await  fetch(`/api/courses/?filter=${filter}`);
+
+            }
     
            const data = await response.json()
           

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styled from '@/styles/Courses.module.scss'
 import CourseItem from '@/components/modules/courseItem/CourseItem'
 import { getCourses } from '@/services/apiCourses'
+import { useRouter } from 'next/router'
 
 
 
@@ -15,15 +16,15 @@ interface typeCourse {
 
 
 
-const Courses = () => {
+const Courses = ({filter}:{filter:String}) => {
+ 
   const [courses, setCourses] = useState([])
-
-
+ 
   async function getData() {
+
+      
     try {
-
-
-      const { data, statusCode } =await getCourses() as any
+      const { data, statusCode } =await getCourses(filter) as any
       if (statusCode == '200') {
 
         setCourses(data)
