@@ -1,9 +1,10 @@
 
 interface typeCourse { 
+    _id:any,
     courseName:String,
      coursePrice:Number, 
+     courseImage:any ,
      courseTeacherName:String,
-      courseImage:any 
     }
 
 
@@ -46,6 +47,31 @@ export async function createCourse(course: typeCourse) {
     try {
         const response = await  fetch(`/api/courses`, {
             method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(course)
+          });
+
+      const data = await response.json()
+      
+       return {data:data,statusCode:response?.status}
+    } catch (error) {
+        throw new Error(`error create course : ${error}`)
+    }
+
+}
+
+
+
+
+export async function updateCourse(course: typeCourse) {
+  
+    
+    try {
+        const response = await  fetch(`/api/courses/${course?._id}`, {
+            method: 'PUT',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'

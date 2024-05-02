@@ -12,7 +12,7 @@ interface typeCourse {
   }
 
 const CourseItem = (course:typeCourse) => {
-  console.log(course);
+ 
   
   return (
     <section className={`${styled.courseItem} `}>
@@ -26,7 +26,7 @@ const CourseItem = (course:typeCourse) => {
             </div>
         </div>
         <div className={`${styled.left}`}>
-          <UpdateCourse/>
+          <UpdateCourse {...course}/>
           <DeleteCourse/>
         </div>
     </section>

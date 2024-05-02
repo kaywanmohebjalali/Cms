@@ -3,7 +3,19 @@ import Button from '../button/Button'
 import Modal from '../modal/Modal'
 import Form from '../form/Form'
 
-const UpdateCourse = () => {
+interface typeCourse { 
+  _id:any
+  courseName:String,
+   coursePrice:Number, 
+   courseTeacherName:String,
+    courseImage:any 
+  }
+
+
+
+const UpdateCourse = (course:typeCourse) => {
+  console.log(course);
+  
   return (
     <Modal>
 
@@ -15,7 +27,7 @@ const UpdateCourse = () => {
 </Modal.Open >
 <Modal.Window name='add-course'>
   
- <Form status='update' title='اطلاعات جدید را وارد کنید' textButton='اپدیت دوره'/>
+ <Form status='update' title='اطلاعات جدید را وارد کنید' textButton='اپدیت دوره'  course={course}/>
 </Modal.Window>
 
 </Modal>

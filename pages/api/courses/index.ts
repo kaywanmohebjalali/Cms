@@ -17,7 +17,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
     case "POST":
       const { courseName, coursePrice, courseTeacherName, courseImage} = req.body;
-      console.log('c : ');
+     
       if (
         courseName.trim().length < 2 ||
         String(coursePrice).trim().length<5 ||
