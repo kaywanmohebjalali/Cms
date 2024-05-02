@@ -83,7 +83,28 @@ export async function updateCourse(course: typeCourse) {
       
        return {data:data,statusCode:response?.status}
     } catch (error) {
-        throw new Error(`error create course : ${error}`)
+        throw new Error(`error update course : ${error}`)
+    }
+
+}
+
+
+
+
+export async function deleteCourse(id: any) {
+  
+    console.log('id : ',id);
+    
+    try {
+        const response = await  fetch(`/api/courses/${id}`, {
+            method: 'DELETE',
+          });
+
+      const data = await response.json()
+      
+       return {data:data,statusCode:response?.status}
+    } catch (error) {
+        throw new Error(`error delete course : ${error}`)
     }
 
 }

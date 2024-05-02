@@ -16,7 +16,7 @@ interface typeCourse {
 }
 
 
-const Form = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course: typeCourse }) => {
+const Form = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course?: typeCourse }) => {
   const courseNameRef = useRef('') as any
   const coursePriceRef = useRef('') as any
   const courseTeacherNameRef = useRef('') as any
@@ -41,7 +41,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
 
       const readerImg = new FileReader()
-    readerImg.readAsDataURL(courseImageRef?.current?.files[0])
+      readerImg.readAsDataURL(courseImageRef?.current?.files[0])
       readerImg.onload = async () => {
         {
           let courseImage = readerImg?.result
@@ -60,11 +60,11 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
             alert('data not valid')
           }
           let response: any = ''
-          if (status == 'add') {
+          if (status == 'create') {
 
             response = await createCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: '' }) as any
           } else {
-            response = await updateCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: course._id }) as any
+            response = await updateCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: course?._id }) as any
 
           }
 
@@ -72,7 +72,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
 
           if (response?.statusCode == 201) {
-            alert('Course  successfully')
+            alert(`Course ${status}  successfully`)
           } else {
             alert(response?.data?.message)
           }
@@ -119,7 +119,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
           icon={faFile}
           className={`${styled.icon}`}
         />
-        <input ref={courseImageRef} type="file" name="img"  />
+        <input ref={courseImageRef} type="file" name="img" />
       </div>
 
       <button onClick={CourseHandler}>{textButton}</button>

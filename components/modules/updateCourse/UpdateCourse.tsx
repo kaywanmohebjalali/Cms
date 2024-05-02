@@ -14,7 +14,7 @@ interface typeCourse {
 
 
 const UpdateCourse = (course:typeCourse) => {
-  console.log(course);
+  
   
   return (
     <Modal>

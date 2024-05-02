@@ -27,7 +27,7 @@ const CourseItem = (course:typeCourse) => {
         </div>
         <div className={`${styled.left}`}>
           <UpdateCourse {...course}/>
-          <DeleteCourse/>
+          <DeleteCourse id={course?._id}/>
         </div>
     </section>
   )

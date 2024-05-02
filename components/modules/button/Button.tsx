@@ -8,12 +8,13 @@ interface typeProps {
     color?: String;
     backGroundColor?: String;
     boxShadow?: String;
+    click?:Function
 
 }
-const Button = ({ children, width, height, color, backGroundColor, boxShadow }: typeProps) => {
+const Button = ({ children, width, height, color, backGroundColor, boxShadow ,click}: typeProps) => {
     return (
         <>
-            <button>{children} </button>
+            <button onClick={()=>click?.()}>{children} </button>
             <style jsx>{`
       button {
         border:none;

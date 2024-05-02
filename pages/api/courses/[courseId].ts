@@ -75,23 +75,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     
 
-    // else if (req.method == "DELETE") {
+    else if (req.method == "DELETE") {
 
-    //     if (!isValidObjectId(courseId)) return res.status(422).json({ message: `id is not valid` });
+        if (!isValidObjectId(courseId)) return res.status(422).json({ message: `id is not valid` });
 
-    //     const isCourse = await courseModel.findOne({ _id: courseId })
+        const isCourse = await courseModel.findOne({ _id: courseId })
 
-    //     if (!isCourse)
-    //         return res.status(404).json({ message: `course not found with id=${courseId}` });
+        if (!isCourse)
+            return res.status(404).json({ message: `course not found with id=${courseId}` });
 
-    //     const DeletedCourse = await courseModel.findOneAndDelete({ _id: courseId })
-    //     if (!DeletedCourse) {
-    //         return res
-    //             .status(501)
-    //             .json({ message: `error delete course with id=${courseId}` });
-    //     }
-    //     return res.status(200).json({ message: `delete course with id=${courseId}` });
-    // }
+        const DeletedCourse = await courseModel.findOneAndDelete({ _id: courseId })
+        if (!DeletedCourse) {
+            return res
+                .status(501)
+                .json({ message: `error delete course with id=${courseId}` });
+        }
+        return res.status(200).json({ message: `delete course with id=${courseId}` });
+    }
 
 
 
