@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactNode } from 'react'
+import React, { MouseEvent, useRef } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,16 +6,50 @@ import { faBalanceScale,  faFile,  faTag, faUser, } from '@fortawesome/free-soli
 config.autoAddCss = false;
 
 import styled from '@/styles/Form.module.scss'
+import { createCourse } from '@/services/apiCourses';
 
 
-const Form = ({file, title, textButton}:{file?:boolean,title:String, textButton:String}) => {
+const Form = ({ title, textButton}:{title:String, textButton:String}) => {
+const courseNameRef= useRef('') as any
+const coursePriceRef= useRef('') as any
+const courseTeacherNameRef= useRef('') as any
+const courseImageRef= useRef('') as any
 
 
-
-function CourseHandler(e: MouseEvent<HTMLButtonElement>){
+async function CourseHandler(e: MouseEvent<HTMLButtonElement>){
   e.preventDefault()
-  
-  // code
+  try {
+    
+    
+    const courseName= courseNameRef.current.value
+    const coursePrice=Number(coursePriceRef.current.value)
+    const courseTeacherName=courseTeacherNameRef.current.value
+    const readerImg=new FileReader()
+    readerImg.readAsDataURL(courseImageRef.current.files[0])
+    readerImg.onload =()=>{
+      
+      const courseImage= readerImg?.result
+
+      
+      if (
+        courseName.trim().length < 2 ||
+        String(coursePrice).trim().length<5 ||
+        coursePrice<=0 ||
+        courseTeacherName.trim().length < 5
+      ) {
+        alert('data not valid')
+      }
+      
+      const {data, statusCode}=createCourse({courseName, coursePrice, courseTeacherName, courseImage}) as any
+      
+      
+      if(statusCode==201){
+        alert('Course added successfully')
+      }
+    } 
+} catch (error) {
+    alert('مشکلی پیش امده')
+}
 }
 
 
@@ -28,7 +62,7 @@ function CourseHandler(e: MouseEvent<HTMLButtonElement>){
         className={`${styled.icon}`}
        
       />
-        <input type="text" placeholder='' name='courseName' />
+        <input ref={courseNameRef} type="text" placeholder='' name='courseName'  />
       </div>
 
       <div className="">
@@ -36,7 +70,7 @@ function CourseHandler(e: MouseEvent<HTMLButtonElement>){
         icon={faBalanceScale}
         className={`${styled.icon}`}
       />
-        <input type="number" placeholder='' name='coursePrice' />
+        <input ref={coursePriceRef} type="number" placeholder='' name='coursePrice' />
       </div>
 
       <div className="">
@@ -44,15 +78,15 @@ function CourseHandler(e: MouseEvent<HTMLButtonElement>){
         icon={faUser}
         className={`${styled.icon}`}
       />
-        <input type="text" placeholder='' name='courseTeacherName' />
+        <input ref={courseTeacherNameRef} type="text" placeholder='' name='courseTeacherName' />
       </div>
-      {file!=false &&<div className="">
+    <div className="">
       <FontAwesomeIcon
         icon={faFile}
         className={`${styled.icon}`}
       />
-        <input type="file" name="img" />
-      </div>}
+        <input ref={courseImageRef} type="file" name="img" />
+      </div>
 
       <button onClick={CourseHandler}>{textButton}</button>
     </form>
