@@ -18,15 +18,13 @@ interface typeCourse {
 
 const Courses = ({filter}:{filter:any}) => {
  
+  
   const [courses, setCourses] = useState([])
  
   async function getData() {
 
-     
-      
     try {
   
-      
       const { data, statusCode } =await getCourses(filter) as any
       if (statusCode == '200') {
 

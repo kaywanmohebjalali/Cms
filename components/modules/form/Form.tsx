@@ -7,6 +7,7 @@ config.autoAddCss = false;
 
 import styled from '@/styles/Form.module.scss'
 import { createCourse, updateCourse } from '@/services/apiCourses';
+import { useRouter } from 'next/router';
 interface typeCourse {
   _id: any
   courseName: String,
@@ -21,6 +22,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
   const coursePriceRef = useRef('') as any
   const courseTeacherNameRef = useRef('') as any
   const courseImageRef = useRef('') as any
+  const {replace}=useRouter()
 
   const update = status == 'update'
 
@@ -46,7 +48,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
       const readerImg = new FileReader()
       readerImg.readAsDataURL(courseImageRef?.current?.files[0])
-readerImg
+
       readerImg.onload = async () => {
         {
           let courseImage = readerImg?.result
@@ -68,9 +70,11 @@ readerImg
             response = await updateCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: course?._id }) as any
 
           }
-
-          if (response?.statusCode == 201) {
+          
+           
+          if ([200,201].includes(response?.statusCode) ) {
             alert(`Course ${status}  successfully`)
+            replace('/')
           } else {
             alert(response?.data?.message)
           }
