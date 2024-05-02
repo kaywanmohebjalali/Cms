@@ -1,11 +1,11 @@
 .courses{
     background-color: var(--color-bg);
     display: grid;
-    align-items: center;
+    align-items: start;
     justify-items: center;
     gap: 2rem;
-    height: 60vh;
-    overflow: scroll;
+    max-height: 60vh;
+    overflow: auto;
     overflow-x: hidden;
     
     padding: 4rem 2rem 10vh 2rem;

@@ -23,10 +23,25 @@ interface typeCourse {
     }
 
 
+    export async function getCourse(id:any) {
+   
+   
+        try {
+            const response = await  fetch(`/api/courses/${id}`);
+    
+           const data = await response.json()
+          
+           return {data,statusCode:response?.status}
+        } catch (error) {
+            throw new Error(`error get courses : ${error}`)
+        }
+    
+    }
+
+
 
 export async function createCourse(course: typeCourse) {
    
-    console.log('course : ',course);
     
     try {
         const response = await  fetch(`/api/courses`, {
@@ -40,7 +55,7 @@ export async function createCourse(course: typeCourse) {
 
       const data = await response.json()
       
-       return {data,statusCode:response?.status}
+       return {data:data,statusCode:response?.status}
     } catch (error) {
         throw new Error(`error create course : ${error}`)
     }

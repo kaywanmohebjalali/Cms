@@ -9,42 +9,49 @@ import styled from '@/styles/Form.module.scss'
 import { createCourse } from '@/services/apiCourses';
 
 
-const Form = ({ title, textButton}:{title:String, textButton:String}) => {
+const Form = ({ title, textButton,status}:{title:String, textButton:String, status:String}) => {
 const courseNameRef= useRef('') as any
 const coursePriceRef= useRef('') as any
 const courseTeacherNameRef= useRef('') as any
 const courseImageRef= useRef('') as any
 
+const update=status=='update'
+
 
 async function CourseHandler(e: MouseEvent<HTMLButtonElement>){
   e.preventDefault()
+
+
   try {
-    
-    
     const courseName= courseNameRef.current.value
     const coursePrice=Number(coursePriceRef.current.value)
     const courseTeacherName=courseTeacherNameRef.current.value
     const readerImg=new FileReader()
     readerImg.readAsDataURL(courseImageRef.current.files[0])
-    readerImg.onload =()=>{
+    readerImg.onload =async()=>{
       
       const courseImage= readerImg?.result
-
+    
+    
       
       if (
         courseName.trim().length < 2 ||
         String(coursePrice).trim().length<5 ||
         coursePrice<=0 ||
-        courseTeacherName.trim().length < 5
+        courseTeacherName.trim().length < 3
       ) {
         alert('data not valid')
       }
       
-      const {data, statusCode}=createCourse({courseName, coursePrice, courseTeacherName, courseImage}) as any
+      const {data, statusCode}=await createCourse({courseName, coursePrice, courseTeacherName, courseImage}) as any
+      
+      
       
       
       if(statusCode==201){
         alert('Course added successfully')
+      }else{
+        alert(data?.message)
       }
     } 
 } catch (error) {

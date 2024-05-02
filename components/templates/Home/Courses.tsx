@@ -6,6 +6,7 @@ import { getCourses } from '@/services/apiCourses'
 
 
 interface typeCourse { 
+  _id:any
   courseName:String,
    coursePrice:Number, 
    courseTeacherName:String,
@@ -47,7 +48,7 @@ const Courses = () => {
     <section className={`${styled.courses} `}>
 
       {
-        courses.length && courses.map((course:any)=><CourseItem key={course._id} src={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />
+        courses.length && courses.map((course:typeCourse)=><CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />
       )
       }
 

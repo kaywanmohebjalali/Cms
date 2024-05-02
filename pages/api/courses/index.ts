@@ -22,7 +22,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
         courseName.trim().length < 2 ||
         String(coursePrice).trim().length<5 ||
         coursePrice<=0 ||
-        courseTeacherName.trim().length < 5||
+        courseTeacherName.trim().length < 3||
         !courseImage
       ) {
         return res.status(422).json({ message: "data not valid" });

@@ -15,7 +15,7 @@ const UpdateCourse = () => {
 </Modal.Open >
 <Modal.Window name='add-course'>
   
- <Form  title='اطلاعات جدید را وارد کنید' textButton='اپدیت دوره'/>
+ <Form status='update' title='اطلاعات جدید را وارد کنید' textButton='اپدیت دوره'/>
 </Modal.Window>
 
 </Modal>
