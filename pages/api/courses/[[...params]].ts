@@ -10,13 +10,17 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
   switch (req.method) {
     case "GET":
-      const filter = req?.query
+      const query = req?.query
       let courses:any
       
       
    
-      if(Object.keys(filter).length){
+      console.log('filter : ',query?.filter);
+      if(Object.keys(query).length){
      
+        courses =await courseModel.find({courseName:{$lte:query?.filter}})
+        console.log('courses : ',courses);
+        
       }else{
 
         courses =await courseModel.find()

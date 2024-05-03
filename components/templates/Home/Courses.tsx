@@ -35,7 +35,7 @@ const Courses = ({filter}:{filter:any}) => {
 
 
     } catch (error) {
-      alert('مشکلی پیش امده')
+      // alert('مشکلی پیش امده')
 
     }
 
