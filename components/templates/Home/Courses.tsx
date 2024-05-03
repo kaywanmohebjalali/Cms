@@ -55,7 +55,7 @@ const Courses = ({ filter }: { filter: any }) => {
       {loading && <Spinner />} 
       {
         courses.length && !loading ? courses.map((course: typeCourse) => <CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />)
-          : ''
+          : <h1>دوره ای یافت نشد</h1>
       }
       
 
