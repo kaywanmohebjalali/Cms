@@ -50,8 +50,9 @@ const Courses = ({filter}:{filter:any}) => {
     <section className={`${styled.courses} `}>
 
       {
-        courses.length && courses.map((course:typeCourse)=><CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />
+        courses.length ?courses.map((course:typeCourse)=><CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />
       )
+      :''
       }
 
     </section>
