@@ -1,4 +1,4 @@
-import React, { MouseEvent, useRef } from 'react'
+import React, { MouseEvent, useRef, useState } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +8,7 @@ config.autoAddCss = false;
 import styled from '@/styles/Form.module.scss'
 import { createCourse, updateCourse } from '@/services/apiCourses';
 import { useRouter } from 'next/router';
+import Spinner from '../spinner/Spinner';
 interface typeCourse {
   _id: any
   courseName: String,
@@ -18,6 +19,8 @@ interface typeCourse {
 
 
 const Form = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course?: typeCourse }) => {
+  const [loading, setLoading]=useState(false)
+  
   const courseNameRef = useRef('') as any
   const coursePriceRef = useRef('') as any
   const courseTeacherNameRef = useRef('') as any
@@ -63,6 +66,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
             alert('data not valid')
           }
           let response: any = ''
+          setLoading(true)
           if (status == 'create') {
 
             response = await createCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: '' }) as any
@@ -73,6 +77,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
           
            
           if ([200,201].includes(response?.statusCode) ) {
+            setLoading(false)
             alert(`Course ${status}  successfully`)
             replace('/')
           } else {
@@ -90,14 +95,16 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
 
   return (
+    <>
+    {loading && <Spinner/>}
     <form className={`${styled.form}`}>
       <h3 className={`${styled.title}`}>{title}</h3>
       <div className="">
         <FontAwesomeIcon
           icon={faTag}
           className={`${styled.icon}`}
-
-        />
+          
+          />
         <input ref={courseNameRef} type="text" placeholder='' name='courseName' defaultValue={(course as any)?.courseName} />
       </div>
 
@@ -105,7 +112,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
         <FontAwesomeIcon
           icon={faBalanceScale}
           className={`${styled.icon}`}
-        />
+          />
         <input ref={coursePriceRef} type="number" placeholder='' name='coursePrice' defaultValue={(course as any)?.coursePrice} />
       </div>
 
@@ -113,19 +120,20 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
         <FontAwesomeIcon
           icon={faUser}
           className={`${styled.icon}`}
-        />
+          />
         <input ref={courseTeacherNameRef} type="text" placeholder='' name='courseTeacherName' defaultValue={(course as any)?.courseTeacherName} />
       </div>
       <div className="">
         <FontAwesomeIcon
           icon={faFile}
           className={`${styled.icon}`}
-        />
+          />
         <input ref={courseImageRef} type="file" name="img" />
       </div>
 
       <button onClick={CourseHandler}>{textButton}</button>
     </form>
+          </>
   )
 }
 
