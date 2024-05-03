@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
 config.autoAddCss = false;
 
-const Search = ({prop}:any) => {
+const Search = () => {
  
   
  const router=useRouter() as any
@@ -24,8 +24,13 @@ const Search = ({prop}:any) => {
 
   
  function setQueryHandler() {
-     params.set('filter', param);
-     replace(`${pathname}?${params.toString()}`);
+  if(param.trim().length>0){
+
+    params.set('filter', param);
+    replace(`${pathname}?${params.toString()}`);
+  }else{
+    alert('query not valid')
+  }
     
  }
 
