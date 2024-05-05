@@ -1,36 +1,24 @@
 import { create } from 'zustand'
 
 
-export type State={
-    count:number;
-    increment:()=>void;
-    reset:()=>void;
-    decrement:(n:number)=>void;
-    loading:boolean;
-    setLoading:Function;
-    funcSetLoading:(func:Function)=>void;
-    funcLoading:(func:any)=>void;
-  }
+export type StateType = {
 
-export type Action = {
-    increment: () => void
-    decrement: (num:number) => void
-    funcLoading:(result:any)=>void
-    funcSetLoading:(func:Function)=>void
+  loading: boolean;
+  setLoading: Function;
 
-  }
+}
+
+export type ActionType = {
+
+  setLoading: (bool: Boolean) => void
+}
 
 
-export const useStore = create<State & Action>((set) => ({
-    count: 0,
-    increment: () => set((state) => ({ count: state.count + 1 })),
-    reset: () => set({ count: 0 }),
-    decrement: (newCount:number) => set({ count: newCount }),
+export const useStore = create<StateType & ActionType>((set) => ({
 
 
-    loading:false,
-    funcLoading:((load:any) => set({ loading:  load})),
+  loading: false,
+  setLoading: ((bool: any) => set({ loading: bool })),
 
-    setLoading:()=>{},
-    funcSetLoading:((func:Function) => set({ setLoading: func }))
-  }))
+
+}))

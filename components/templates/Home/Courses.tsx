@@ -3,7 +3,7 @@ import styled from '@/styles/Courses.module.scss'
 import CourseItem from '@/components/modules/courseItem/CourseItem'
 import { getCourses } from '@/services/apiCourses'
 import Spinner from '@/components/modules/spinner/Spinner'
-import { useStore } from '@/utils/store'
+import { StateType, useStore } from '@/utils/store'
 
 
 
@@ -19,12 +19,11 @@ interface typeCourse {
 const Courses = ({ filter }: { filter: any }) => {
 
   const [courses, setCourses] = useState([])
-  const [loading, setLoading] = useState(false)
-  
-  const funcLoad=useStore((state:any) => state.funcLoading)
-  funcLoad(loading)
-  const funcSetLoad=useStore((state:any) => state.funcSetLoading)
-  funcSetLoad(setLoading)
+
+  const loading = useStore((state:StateType) => state.loading)
+  const setLoading = useStore((state:StateType) => state.setLoading)
+
+ 
 
 
   async function getData() {
@@ -58,7 +57,7 @@ const Courses = ({ filter }: { filter: any }) => {
     <section className={`${styled.courses} `}>
       {loading && <Spinner />} 
       {
-        courses.length && !loading ? courses.map((course: typeCourse) => <CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />)
+        courses.length? courses.map((course: typeCourse) => <CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />)
           : <h1>دوره ای یافت نشد</h1>
       }
       

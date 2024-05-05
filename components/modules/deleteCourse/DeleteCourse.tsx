@@ -2,11 +2,11 @@ import React from 'react'
 import Button from '../button/Button'
 import { deleteCourse } from '@/services/apiCourses'
 import { useRouter } from 'next/router'
-import { useStore } from '@/utils/store'
+import { StateType, useStore } from '@/utils/store'
 
 const DeleteCourse = ({ id }: { id: any }) => {
   
-  const setLoading = useStore((state:any) => state.setLoading)
+  const setLoading = useStore((state:StateType) => state.setLoading)
  const {replace}=useRouter()
 
 
@@ -18,15 +18,17 @@ const DeleteCourse = ({ id }: { id: any }) => {
       
       if (response?.statusCode == 200) {
         setLoading(false)
-        alert('delete Course  successfully')
-       
+        // alert('delete Course  successfully')
+        
         replace('/')
       } else {
+        setLoading(false)
         alert(response?.data?.message)
       }
-
-
+      
+      
     } catch (error) {
+      setLoading(false)
       console.log('error : ', error);
       alert('مشکلی پیش امده')
 

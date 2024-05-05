@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
 
+import { StateType } from '@/utils/store';
 interface typeCourse {
   _id: any
   courseName: String,
@@ -22,10 +23,11 @@ interface typeCourse {
 
 
 const Form = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course?: typeCourse }) => {
-  const loading = useStore((state:any) => state.loading)
-  const setLoading = useStore((state:any) => state.setLoading)
+  
+  const loading = useStore((state:StateType) => state.loading)
+  const setLoading = useStore((state:StateType) => state.setLoading)
 
-  // const [loading, setLoading]=useState(false)
+
 
 
 
@@ -85,18 +87,19 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
           
            
           if ([200,201].includes(response?.statusCode) ) {
-            // setLoading(false)
-            alert(`Course ${status}  successfully`)
+            setLoading(false)
+            // alert(`Course ${status}  successfully`)
             replace('/')
           } else {
+            setLoading(false)
             alert(response?.data?.message)
           }
         }
       }
     } catch (error) {
+      setLoading(false)
       console.log('error : ', error);
       alert('مشکلی پیش امده')
-      // setLoading(false)
 
     }
   }
@@ -105,7 +108,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
   return (
     <>
-    {loading? <Spinner/>:
+    {loading&&update&& <Spinner/>}
     <form className={`${styled.form}`}>
       <h3 className={`${styled.title}`}>{title}</h3>
       <div className="">
@@ -142,7 +145,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
       <button onClick={CourseHandler}>{textButton}</button>
     </form>
-}
+
           </>
   )
 }
