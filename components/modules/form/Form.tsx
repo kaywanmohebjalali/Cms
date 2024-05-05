@@ -1,4 +1,4 @@
-import React, { MouseEvent, useRef, useState } from 'react'
+import React, { MouseEvent, useEffect, useRef, useState } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,6 +9,8 @@ import styled from '@/styles/Form.module.scss'
 import { createCourse, updateCourse } from '@/services/apiCourses';
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
+import { useStore } from '@/utils/store';
+
 interface typeCourse {
   _id: any
   courseName: String,
@@ -18,9 +20,17 @@ interface typeCourse {
 }
 
 
+
 const Form = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course?: typeCourse }) => {
-  const [loading, setLoading]=useState(false)
-  
+  const loading = useStore((state:any) => state.loading)
+  const setLoading = useStore((state:any) => state.setLoading)
+
+  // const [loading, setLoading]=useState(false)
+
+
+
+
+
   const courseNameRef = useRef('') as any
   const coursePriceRef = useRef('') as any
   const courseTeacherNameRef = useRef('') as any
@@ -32,11 +42,9 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
 
 
-
   async function CourseHandler(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault()
-
-
+  
     try {
       const courseName = courseNameRef?.current?.value
       const coursePrice = Number(coursePriceRef?.current?.value)
@@ -77,7 +85,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
           
            
           if ([200,201].includes(response?.statusCode) ) {
-            setLoading(false)
+            // setLoading(false)
             alert(`Course ${status}  successfully`)
             replace('/')
           } else {
@@ -88,6 +96,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
     } catch (error) {
       console.log('error : ', error);
       alert('مشکلی پیش امده')
+      // setLoading(false)
 
     }
   }
@@ -96,7 +105,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
   return (
     <>
-    {loading && <Spinner/>}
+    {loading? <Spinner/>:
     <form className={`${styled.form}`}>
       <h3 className={`${styled.title}`}>{title}</h3>
       <div className="">
@@ -133,6 +142,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
       <button onClick={CourseHandler}>{textButton}</button>
     </form>
+}
           </>
   )
 }

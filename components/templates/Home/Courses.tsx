@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import styled from '@/styles/Courses.module.scss'
 import CourseItem from '@/components/modules/courseItem/CourseItem'
 import { getCourses } from '@/services/apiCourses'
-import { useRouter } from 'next/router'
 import Spinner from '@/components/modules/spinner/Spinner'
+import { useStore } from '@/utils/store'
+
 
 
 
@@ -15,13 +16,16 @@ interface typeCourse {
   courseImage: String
 }
 
-
-
 const Courses = ({ filter }: { filter: any }) => {
 
-  const [loading, setLoading] = useState(true)
-
   const [courses, setCourses] = useState([])
+  const [loading, setLoading] = useState(false)
+  
+  const funcLoad=useStore((state:any) => state.funcLoading)
+  funcLoad(loading)
+  const funcSetLoad=useStore((state:any) => state.funcSetLoading)
+  funcSetLoad(setLoading)
+
 
   async function getData() {
 
