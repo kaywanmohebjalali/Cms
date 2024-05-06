@@ -22,14 +22,14 @@ const Search = () => {
 
  const params = new URLSearchParams(searchParams);
 
-  
  function setQueryHandler() {
   if(param.trim().length>0){
 
     params.set('filter', param);
     replace(`${pathname}?${params.toString()}`);
   }else{
-    alert('query not valid')
+    replace(`${pathname}`);
+
   }
     
  }

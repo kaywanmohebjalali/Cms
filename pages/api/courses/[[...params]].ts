@@ -13,13 +13,9 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
       const query = req?.query
       let courses:any
       
-      
-   
-      console.log('filter : ',query?.filter);
       if(Object.keys(query).length){
      
         courses =await courseModel.find({courseName:{$regex:query?.filter}});
-        // console.log('courses : ',courses);
         
       }else{
 
