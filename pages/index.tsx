@@ -3,7 +3,6 @@ import Courses from "@/components/templates/Home/Courses";
 import { useRouter } from "next/router";
 import courseModel from '..//models/courses'
 import connectToDB from "../utils/db";
-import { usePathname } from "next/navigation";
 
 const Home = ({ courses, error }: { courses: [], error: any }) => {
   const { query } = useRouter()
@@ -18,7 +17,7 @@ const Home = ({ courses, error }: { courses: [], error: any }) => {
       <h1>دوره ها</h1>
       <AddCourse />
     </div>
-    <Courses key={Math.random()} courses={courses} error={error} filter={query?.filter} />
+    <Courses key={Math.random()} courses={courses} error={error} />
 
   </section>
 };
