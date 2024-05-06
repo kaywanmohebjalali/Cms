@@ -52,6 +52,7 @@ interface typeCourse {
 export async function createCourse(course: typeCourse) {
    
     
+    
     try {
         const response = await  fetch(`/api/courses`, {
             method: 'POST',

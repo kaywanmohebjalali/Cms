@@ -25,6 +25,7 @@ const Home = ({ courses, error }: { courses: [], error: any }) => {
 export default Home;
 
 
+
 export async function getServerSideProps(context: any) {
   const { query } = context
 

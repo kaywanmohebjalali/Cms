@@ -3,6 +3,7 @@ import Button from '../button/Button'
 import { deleteCourse } from '@/services/apiCourses'
 import { useRouter } from 'next/router'
 import { StateType, useStore } from '@/utils/store'
+import Swal from 'sweetalert2'
 
 const DeleteCourse = ({ id }: { id: any }) => {
   
@@ -18,20 +19,36 @@ const DeleteCourse = ({ id }: { id: any }) => {
       
       if (response?.statusCode == 200) {
         setLoading(false)
-        // alert('delete Course  successfully')
+        Swal.fire({
+          position: "center",
+          title: `delete Course  successfully`,
+          icon: 'success',
+          showConfirmButton: false,
+          timer: 1800
+        })
         
         replace('/')
       } else {
         setLoading(false)
-        alert(response?.data?.message)
+        Swal.fire({
+          position: "center",
+          title: `can not Course deleted`,
+          icon: 'error',
+          showConfirmButton: false,
+          timer: 1800
+        })
       }
       
       
     } catch (error) {
       setLoading(false)
-      console.log('error : ', error);
-      alert('مشکلی پیش امده')
-
+      Swal.fire({
+        position: "center",
+        title: 'مشکلی پیش امده',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1800
+      })
     }
   }
 

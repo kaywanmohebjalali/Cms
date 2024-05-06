@@ -18,6 +18,7 @@
     "react-dom": "^18",
     "sass": "^1.75.0",
     "styled-jsx": "^5.1.2",
+    "sweetalert2": "^11.10.8",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

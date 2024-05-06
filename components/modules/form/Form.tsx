@@ -10,6 +10,8 @@ import { createCourse, updateCourse } from '@/services/apiCourses';
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
+ 
+import Swal from 'sweetalert2'
 
 import { StateType } from '@/utils/store';
 interface typeCourse {
@@ -26,6 +28,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
   
   const loading = useStore((state:StateType) => state.loading)
   const setLoading = useStore((state:StateType) => state.setLoading)
+  const update = status == 'update'
 
 
 
@@ -39,7 +42,6 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
   const courseImageRef = useRef('') as any
   const {replace}=useRouter()
 
-  const update = status == 'update'
 
 
 
@@ -73,7 +75,13 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
             coursePrice <= 0 ||
             courseTeacherName.trim().length < 3
           ) {
-            alert('data not valid')
+            Swal.fire({
+              position: "center",
+              title: `data not valid`,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 1800
+            })
           }
           let response: any = ''
           setLoading(true)
@@ -88,18 +96,38 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
            
           if ([200,201].includes(response?.statusCode) ) {
             setLoading(false)
-            // alert(`Course ${status}  successfully`)
             replace('/')
+         
+            Swal.fire({
+              position: "center",
+              title: `Course ${status}  successfully`,
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 1800
+            })
+            
           } else {
             setLoading(false)
-            alert(response?.data?.message)
+            Swal.fire({
+              position: "center",
+              title: `can not Course ${status}`,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 1800
+            })
           }
         }
       }
     } catch (error) {
       setLoading(false)
-      console.log('error : ', error);
-      alert('مشکلی پیش امده')
+
+      Swal.fire({
+        position: "center",
+        title: 'مشکلی پیش امده',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1800
+      })
 
     }
   }
@@ -108,7 +136,8 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
   return (
     <>
-    {loading&&update&& <Spinner/>}
+    {loading&& <Spinner/>}
+
     <form className={`${styled.form}`}>
       <h3 className={`${styled.title}`}>{title}</h3>
       <div className="">

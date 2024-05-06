@@ -10,22 +10,28 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
   switch (req.method) {
     case "GET":
-      const query = req?.query
-      let courses:any
-      
-      if(Object.keys(query).length){
-     
-        courses =await courseModel.find({courseName:{$regex:query?.filter}});
+       try {
+        const query = req?.query
+        let courses:any
         
-      }else{
-
-        courses =await courseModel.find()
-      }
-      return res.json(courses);
+        if(Object.keys(query).length){
+       
+          courses =await courseModel.find({courseName:{$regex:query?.filter}});
+          
+        }else{
+  
+          courses =await courseModel.find()
+        }
+        return res.json(courses);
+      } catch (error) {
+         return res.status(500).json({message:error});
+        
+       }
 
 
 
     case "POST":
+     try {
       const { courseName, coursePrice, courseTeacherName, courseImage} = req.body;
      
       if (
@@ -49,8 +55,12 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
      if(course)return res.status(201).json({ message: "create new course", course: course });
     
      
-     return res.status(409).json({ message: "error create new course"});
-
+     return res.status(500).json({ message: "error create new course"});
+     
+    } catch (error) {
+       return res.status(500).json({ message: error});
+      
+     }
 
     default:
       return res.json({ message: "courses" });
