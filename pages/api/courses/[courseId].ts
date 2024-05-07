@@ -41,7 +41,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         try {
             const { courseName, coursePrice, courseTeacherName, courseImage } = req.body;
            
-
             if (
                 courseName.trim().length < 2 ||
                 coursePrice<100000 ||
