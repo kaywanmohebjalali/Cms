@@ -25,11 +25,14 @@ gap: 1rem;
     padding: 0 1rem;
     margin-right: 0.5rem;
     font-size: 1.4rem;
-   
+    @media screen and (max-width:400px) {
+        font-size: 1.2rem !important;
+        
+    }
 }
 
 .labelImg{
-    padding: 10px !important;
+    padding:5px 10px !important;
     margin: 0 1rem;
     cursor: pointer;
     background-color: #3498db!important;
@@ -38,6 +41,11 @@ gap: 1rem;
     width: auto!important;
     height: auto!important;
     font-size: 1.2rem !important;
+    
+    @media screen and (max-width:400px) {
+        font-size: 1rem !important;
+        
+    }
    
 }
 
@@ -55,10 +63,19 @@ display: none;
     background-color: var(--color);
     color: #fff;
     box-shadow: var(--box-shadow-green);
+
+    @media screen and (max-width:400px) {
+        font-size: 1.4rem !important;
+        
+    }
 }
 
 .icon{
     font-size: 1.6rem !important;
+    @media screen and (max-width:400px) {
+        font-size: 1.4rem !important;
+        
+    }
 }
 
 .title{

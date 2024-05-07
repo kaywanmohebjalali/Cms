@@ -98,7 +98,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
             }
           } else {
             response = await createCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: '' }) as any
-
+            reset()
           }
 
 
@@ -229,7 +229,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
             className={`${styled.icon}`}
             />
         <label className={`${styled.labelImg}`} htmlFor="img">
-              برای انتخاب عکس کلیک کنید
+               انتخاب عکس  
           </label>
        
           <input className={`${styled.inputImg}`} id='img' {...register("img", {
