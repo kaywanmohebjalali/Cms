@@ -5,10 +5,9 @@ import courseModel from '..//models/courses'
 import connectToDB from "../utils/db";
 
 const Home = ({ courses, error }: { courses: [], error: any }) => {
-  const { query } = useRouter()
 
 
-
+ 
 
 
   return <section className="container main">
@@ -17,7 +16,7 @@ const Home = ({ courses, error }: { courses: [], error: any }) => {
       <h1>دوره ها</h1>
       <AddCourse />
     </div>
-    <Courses key={Math.random()} courses={courses} error={error} />
+    <Courses key={new Date().getTime()} courses={courses} error={error} />
 
   </section>
 };
