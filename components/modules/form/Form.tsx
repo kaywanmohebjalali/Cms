@@ -1,19 +1,21 @@
-import React, { MouseEvent, useEffect, useRef, useState } from 'react'
+import React, {  useRef  } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBalanceScale, faFile, faTag, faUser, } from '@fortawesome/free-solid-svg-icons';
 config.autoAddCss = false;
+import {  useForm } from 'react-hook-form';
+import Swal from 'sweetalert2'
 
 import styled from '@/styles/Form.module.scss'
 import { createCourse, updateCourse } from '@/services/apiCourses';
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
- 
-import Swal from 'sweetalert2'
-
 import { StateType } from '@/utils/store';
+ 
+
+
 interface typeCourse {
   _id: any
   courseName: String,
@@ -23,6 +25,14 @@ interface typeCourse {
 }
 
 
+type Inputs = {
+  courseName: string,
+  coursePrice: number,
+  courseTeacherName: string
+  img?: string
+  
+}
+
 
 const Form = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course?: typeCourse }) => {
   
@@ -30,66 +40,70 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
   const setLoading = useStore((state:StateType) => state.setLoading)
   const update = status == 'update'
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm<Inputs>({
+    defaultValues: update ? course : {} as any,
+  })
 
 
-
-
-
-
-  const courseNameRef = useRef('') as any
-  const coursePriceRef = useRef('') as any
-  const courseTeacherNameRef = useRef('') as any
-  const courseImageRef = useRef('') as any
   const {replace}=useRouter()
 
 
 
 
 
-  async function CourseHandler(e: MouseEvent<HTMLButtonElement>) {
-    e.preventDefault()
-  
+
+
+
+
+
+
+
+
+
+
+  async function onSubmit(data:any) {
+
+
+
+
     try {
-      const courseName = courseNameRef?.current?.value
-      const coursePrice = Number(coursePriceRef?.current?.value)
-      const courseTeacherName = courseTeacherNameRef?.current?.value
-      let img = courseImageRef?.current?.value
-      img = courseImageRef.current.files[0]
-
-      
-
-
+      const {courseName, coursePrice, courseTeacherName, img}=data
    
-
+      
       const readerImg = new FileReader()
-      readerImg.readAsDataURL(courseImageRef?.current?.files[0])
+     
+      if(img[0]){
+
+        readerImg?.readAsDataURL(img[0])
+      }else{
+        
+        readerImg?.readAsDataURL(new Blob())
+      }
 
       readerImg.onload = async () => {
         {
-          let courseImage = readerImg?.result
+          let courseImage:any=course?.courseImage
+          
+          if (img) {
+            courseImage = readerImg?.result
+          }else{
 
-
-          if (
-            courseName.trim().length < 2 ||
-            String(coursePrice).trim().length < 5 ||
-            coursePrice <= 0 ||
-            courseTeacherName.trim().length < 3
-          ) {
-            Swal.fire({
-              position: "center",
-              title: `data not valid`,
-              icon: 'error',
-              showConfirmButton: false,
-              timer: 1800
-            })
           }
+   
+
           let response: any = ''
           setLoading(true)
-          if (status == 'create') {
+          if (update) {
 
-            response = await createCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: '' }) as any
-          } else {
             response = await updateCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: course?._id }) as any
+          } else {
+            response = await createCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: '' }) as any
 
           }
           
@@ -118,9 +132,12 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
           }
         }
       }
+
+
+
     } catch (error) {
       setLoading(false)
-
+     
       Swal.fire({
         position: "center",
         title: 'مشکلی پیش امده',
@@ -134,45 +151,93 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
 
 
 
+
+  function onError(error:any){
+    console.log('error form  :',error);
+    
+  }
+
+
+
   return (
     <>
     {loading&& <Spinner/>}
 
-    <form className={`${styled.form}`}>
-      <h3 className={`${styled.title}`}>{title}</h3>
+    <form className={`${styled.form}`} onSubmit={handleSubmit(onSubmit, onError)}>      
+    <h3 className={`${styled.title}`}>{title}</h3>
+
+        {errors?.courseName?.message && <p className={`${styled.error}`}>{errors?.courseName?.message}</p>}
       <div className="">
         <FontAwesomeIcon
           icon={faTag}
           className={`${styled.icon}`}
           
           />
-        <input ref={courseNameRef} type="text" placeholder='' name='courseName' defaultValue={(course as any)?.courseName} />
+        <input {...register("courseName",{
+          required:'نام دوره رو وارد کنید',
+          validate: (value) => {
+  
+            return (
+              value?.length>1||
+              "باید نام دوره بیشتر از 1 حرف باشد"
+
+            );
+          },
+          min:{
+            value:2,
+            message:"باید نام دوره بیشتر از 1 حرف باشد"
+          }
+        })}   type="text" placeholder=''  defaultValue={(course as any)?.courseName} />
       </div>
 
+      {errors?.coursePrice?.message && <p className={`${styled.error}`}>{errors?.coursePrice?.message}</p>}
       <div className="">
+
         <FontAwesomeIcon
           icon={faBalanceScale}
           className={`${styled.icon}`}
           />
-        <input ref={coursePriceRef} type="number" placeholder='' name='coursePrice' defaultValue={(course as any)?.coursePrice} />
+        <input  {...register("coursePrice",{
+          required:'قیمت دوره رو وارد کنید',
+          min: {
+            value: 100000,
+            message: "باید قیمت دوره بیشتر از 9999 تومان باشد",
+          },
+        })}   type="number" placeholder='' name='coursePrice' defaultValue={(course as any)?.coursePrice} />
       </div>
 
+      {errors?.courseTeacherName?.message && <p className={`${styled.error}`}>{errors?.courseTeacherName?.message}</p>}
       <div className="">
+
         <FontAwesomeIcon
           icon={faUser}
           className={`${styled.icon}`}
           />
-        <input ref={courseTeacherNameRef} type="text" placeholder='' name='courseTeacherName' defaultValue={(course as any)?.courseTeacherName} />
+        <input {...register("courseTeacherName",{
+          required:'نام مدرس رو وارد کنید',
+          validate: (value) => {
+            return (
+              value.length>2 ||
+              "باید نام مدرس بیشتر از 2 حرف باشد"
+
+            );
+            
+        }
+        })}  type="text" placeholder='' name='courseTeacherName' defaultValue={(course as any)?.courseTeacherName} />
       </div>
+      {errors?.img?.message && <p className={`${styled.error}`}>{errors?.img?.message}</p>}
       <div className="">
+
         <FontAwesomeIcon
           icon={faFile}
           className={`${styled.icon}`}
           />
-        <input ref={courseImageRef} type="file" name="img" />
+        <input {...register("img",{
+          required:update?false:'لطفا یک عکس انتخاب کنید'
+        })}  type="file" name="img" />
       </div>
 
-      <button onClick={CourseHandler}>{textButton}</button>
+      <button type='submit'>{textButton}</button>
     </form>
 
           </>

@@ -36,8 +36,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
      
       if (
         courseName.trim().length < 2 ||
-        String(coursePrice).trim().length<5 ||
-        coursePrice<=0 ||
+        coursePrice<100000 ||
         courseTeacherName.trim().length < 3||
         !courseImage
       ) {

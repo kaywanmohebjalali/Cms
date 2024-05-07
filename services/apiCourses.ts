@@ -102,7 +102,6 @@ export async function updateCourse(course: typeCourse) {
 
 export async function deleteCourse(id: any) {
   
-    console.log('id : ',id);
     
     try {
         const response = await  fetch(`/api/courses/${id}`, {

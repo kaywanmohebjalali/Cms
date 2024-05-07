@@ -40,13 +40,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     else if (req.method == "PUT") {
         try {
             const { courseName, coursePrice, courseTeacherName, courseImage } = req.body;
-            console.log('courseName : ', courseName);
+           
 
             if (
                 courseName.trim().length < 2 ||
-                String(coursePrice).trim().length < 5 ||
-                coursePrice <= 0 ||
-                courseTeacherName.trim().length < 3 ||
+                coursePrice<100000 ||
+                courseTeacherName.trim().length < 3||
                 !courseImage
             ) {
                 return res.status(422).json({ message: "data not valid" });
