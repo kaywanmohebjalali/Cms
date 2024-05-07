@@ -3,7 +3,7 @@ interface typeCourse {
     _id:any,
     courseName:String,
      coursePrice:Number, 
-     courseImage:any ,
+     courseImage?:any ,
      courseTeacherName:String,
     }
 

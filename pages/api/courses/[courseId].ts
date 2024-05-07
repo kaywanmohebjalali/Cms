@@ -44,8 +44,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             if (
                 courseName.trim().length < 2 ||
                 coursePrice<100000 ||
-                courseTeacherName.trim().length < 3||
-                !courseImage
+                courseTeacherName.trim().length < 3
+                
             ) {
                 return res.status(422).json({ message: "data not valid" });
             }
