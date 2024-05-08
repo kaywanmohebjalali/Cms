@@ -13,10 +13,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { courseId } = req?.query;
 
 
-
-
-
-
     if (req.method == "GET") {
         try {
             if (!isValidObjectId(courseId)) return res.status(422).json({ message: `id is not valid` });
@@ -96,14 +92,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         }
     }
-
-
-
-
-
-
-
-
 
 
 
