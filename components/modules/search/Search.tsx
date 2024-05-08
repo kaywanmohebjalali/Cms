@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -13,7 +13,7 @@ const Search = () => {
  
   
   const {query}=useRouter() as any
-  const [param, setParam]=useState('')
+  const [param, setParam]=useState("")
   const { replace, pathname} = useRouter();
 
 
@@ -21,6 +21,7 @@ const Search = () => {
  const searchParams = useSearchParams();
 
  const params = new URLSearchParams(searchParams);
+useEffect(()=>setParam(query?.filter),[])
 
  function setQueryHandler() {
   if(param.trim().length>0){
@@ -37,7 +38,7 @@ const Search = () => {
 
   return (
       <div className='search'>
-        <input value={query?.filter} onChange={(e)=>setParam(e.target.value)} className='search-input' type="text" placeholder='جستجو کنید...'/>
+        <input value={param}  onChange={(e)=>setParam(e.target.value)} className='search-input' type="text" placeholder='جستجو کنید...'/>
           <FontAwesomeIcon onClick={setQueryHandler} className='search-icon'  icon={faSearch} />
     </div>
   )
