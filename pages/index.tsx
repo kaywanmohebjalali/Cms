@@ -16,7 +16,7 @@ const Home = ({ courses, error }: { courses: [], error: any }) => {
       <h1>دوره ها</h1>
       <AddCourse />
     </div>
-    <Courses key={new Date().getTime()} courses={courses} error={error} />
+    <Courses  courses={courses} error={error} />
 
   </section>
 };

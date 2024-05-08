@@ -12,9 +12,9 @@ config.autoAddCss = false;
 const Search = () => {
  
   
- const router=useRouter() as any
- const [param, setParam]=useState('')
- const { replace, pathname} = useRouter();
+  const {query}=useRouter() as any
+  const [param, setParam]=useState('')
+  const { replace, pathname} = useRouter();
 
 
 
@@ -37,7 +37,7 @@ const Search = () => {
 
   return (
       <div className='search'>
-        <input onChange={(e)=>setParam(e.target.value)} className='search-input' type="text" placeholder='جستجو کنید...'/>
+        <input value={query?.filter} onChange={(e)=>setParam(e.target.value)} className='search-input' type="text" placeholder='جستجو کنید...'/>
           <FontAwesomeIcon onClick={setQueryHandler} className='search-icon'  icon={faSearch} />
     </div>
   )

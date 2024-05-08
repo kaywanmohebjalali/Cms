@@ -51,7 +51,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
   })
 
 
-  const { replace } = useRouter()
+  const { replace,reload } = useRouter()
 
 
 
@@ -105,6 +105,7 @@ const Form = ({ title, textButton, status, course }: { title: String, textButton
           if ([200, 201].includes(response?.statusCode)) {
             setLoading(false)
             replace('/')
+           
 
             Swal.fire({
               position: "center",
