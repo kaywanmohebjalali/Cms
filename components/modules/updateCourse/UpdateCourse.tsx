@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../button/Button'
 import Modal from '../modal/Modal'
-import Form from '../form/Form'
+import Form from '../formCourses/CoursesForm'
 
 interface typeCourse { 
   _id:any

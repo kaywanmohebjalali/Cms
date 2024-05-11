@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from '../button/Button'
 import Modal from '../modal/Modal'
-import Form from '../form/Form'
+import CoursesForm from '../formCourses/CoursesForm'
 
 
 
@@ -21,7 +21,7 @@ const AddCourse = () => {
 </Modal.Open >
 <Modal.Window name='add-course'>
   
- <Form  status='create' title='اطلاعات دوره رو وارد کنید' textButton='اضافه کردن دوره'/>
+ <CoursesForm  status='create' title='اطلاعات دوره رو وارد کنید' textButton='اضافه کردن دوره'/>
 </Modal.Window>
 
 </Modal>

@@ -5,7 +5,8 @@ import Logo from '../logo/Logo'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faHouse, faLock,  faTag } from '@fortawesome/free-solid-svg-icons';
+import { faBookOpen, faBookmark, faHouse, faLock,  faMasksTheater,  faPerson,  faTag, faUser } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 config.autoAddCss = false;
 
 
@@ -19,26 +20,32 @@ const Sidebar = () => {
       <div className={`${styled.item} ${styled.active}`}>
         <span className={`${styled.point} ${styled.activePoint}`}></span>
       <FontAwesomeIcon
-        icon={faHouse}
+        icon={faBookOpen}
       />
-         <p className={`${styled.title}`}>صحفه اصلی</p>
+      <Link href='/'>
+
+         <p className={`${styled.title}`}> دوره ها</p>
+      </Link>
       </div>
 
       <div className={`${styled.item} `}>
         <span className={`${styled.point} `}></span>
       <FontAwesomeIcon
-        icon={faTag}
+        icon={faUser}
       />
-         <p className={`${styled.title}`}> تماس با ما</p>
+        <p className={`${styled.title}`}>ادمین ها</p>
       </div>
 
 
       <div className={`${styled.item} `}>
         <span className={`${styled.point}`}></span>
       <FontAwesomeIcon
-        icon={faBookmark}
+        icon={faUser}
       />
-         <p className={`${styled.title}`}> درباره ی ما</p>
+         <Link href='/teachers'>
+         <p className={`${styled.title}`}>مدرس ها</p>
+         
+         </Link>
       </div>
 
    

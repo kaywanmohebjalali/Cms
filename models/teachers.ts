@@ -3,41 +3,38 @@ const mongoose =require('mongoose')
 
 
 const Schema = mongoose.Schema({
-    courseName:{
+    fullName:{
         type:String,
         required:true,
         minLength:2,
-
         index:true,
         unique:true,
+        
+    },
 
-    },
-    coursePrice:{
-        type:Number,
-        required:true,
-        min:100000
-    },
-    courseTeacherName:{
+    email:{
         type:String,
         required:true,
-        minLength:3,
+        minLength:2,
+        index:true,
+        unique:true,
     },
-
-       courseImage:{
+    password:{
+        type:String,
+        required:true,
+        minLength:5,
+          
+    },
+    teacherImage:{
         type:String
     },
-    teacherId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Teachers",
-        required:true
-    },
-
+  
 },
 {
     timestamps:true,
 }
 )
 
-const model =mongoose?.models?.Courses ||  mongoose.model('Courses',Schema)
+const model =mongoose?.models?.Teachers ||  mongoose.model('Teachers',Schema)
 
 export default model
