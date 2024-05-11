@@ -4,7 +4,7 @@ interface typeCourse {
     courseName: String,
     coursePrice: Number,
     courseImage?: any,
-    courseTeacherName: String,
+    teacherId: String,
 }
 
 
@@ -53,6 +53,7 @@ export async function createCourse(course: typeCourse) {
 
 
 
+
     try {
         const response = await fetch(`/api/courses`, {
             method: 'POST',
@@ -64,9 +65,12 @@ export async function createCourse(course: typeCourse) {
         });
 
         const data = await response.json()
-
+        console.log('data : ',data);
+  
         return { data: data, statusCode: response?.status }
     } catch (error) {
+        
+        
         throw new Error(`error create course : ${error}`)
     }
 

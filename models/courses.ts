@@ -17,11 +17,6 @@ const Schema = mongoose.Schema({
         required:true,
         min:100000
     },
-    courseTeacherName:{
-        type:String,
-        required:true,
-        minLength:3,
-    },
 
        courseImage:{
         type:String

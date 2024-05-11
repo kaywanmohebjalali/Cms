@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2'
 import styled from '@/styles/Form.module.scss'
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
-import { useStore } from '@/utils/store';
+import { ActionType, useStore } from '@/utils/store';
 import { StateType } from '@/utils/store';
 import { createTeacher, updateTeacher } from '@/services/apiTeachers';
 
@@ -37,8 +37,11 @@ type Inputs = {
 const TeacherForm = ({ title, textButton, status, teacher }: { title: String, textButton: String, status: String, teacher?: typeTeacher }) => {
 
   const loading = useStore((state: StateType) => state.loading)
-  const setLoading = useStore((state: StateType) => state.setLoading)
+  const setLoading = useStore((state: ActionType) => state.setLoading)
+  const setTeachers = useStore((state: ActionType) => state.setTeachers)
+
   const update = status == 'update'
+  // useEffect(() => setTeachers(teachers), [])
 
   const {
     register,

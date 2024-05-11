@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,7 +12,8 @@ import { createCourse, updateCourse } from '@/services/apiCourses';
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
-import { StateType } from '@/utils/store';
+import { StateType,ActionType } from '@/utils/store';
+import { getTeachers } from '@/services/apiTeachers';
 
 
 
@@ -35,10 +36,31 @@ type Inputs = {
 
 
 const CoursesForm = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course?: typeCourse }) => {
-
+  
+  const [teachers, setTeachers]=useState([])
   const loading = useStore((state: StateType) => state.loading)
-  const setLoading = useStore((state: StateType) => state.setLoading)
+  const setLoading = useStore((state: ActionType) => state.setLoading)
+  const { replace } = useRouter()
   const update = status == 'update'
+
+
+
+  useEffect(()=>{
+     async function getData() {
+      try {
+        let {data}=await getTeachers(undefined)
+        setTeachers(data)
+        
+        
+      } catch (error) {
+        
+      }
+     }
+     getData()
+     
+  },[])
+
+
 
   const {
     register,
@@ -51,9 +73,7 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
   })
 
 
-  const { replace } = useRouter()
-
-
+ 
 
 
 
@@ -90,14 +110,16 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
           if (update) {
             if (img[0]) {
 
-              response = await updateCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: course?._id }) as any
+              response = await updateCourse({ courseName, coursePrice, teacherId:courseTeacherName, courseImage, _id: course?._id }) as any
             } else {
 
-              response = await updateCourse({ courseName, coursePrice, courseTeacherName, _id: course?._id }) as any
+              response = await updateCourse({ courseName, coursePrice, teacherId:courseTeacherName, _id: course?._id }) as any
 
             }
           } else {
-            response = await createCourse({ courseName, coursePrice, courseTeacherName, courseImage, _id: '' }) as any
+            console.log(courseImage);
+            
+            response = await createCourse({ courseName, coursePrice, teacherId:courseTeacherName, courseImage, _id: '' }) as any
             reset()
           }
 
@@ -205,7 +227,7 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
         </label>
 
         {errors?.courseTeacherName?.message && <p className={`${styled.error}`}>{errors?.courseTeacherName?.message}</p>}
-        <label htmlFor="courseTeacherName">
+        {/* <label htmlFor="courseTeacherName">
 
           <FontAwesomeIcon
             icon={faUser}
@@ -222,7 +244,17 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
 
             }
           })} type="text" placeholder='نام مدرس رو وارد کنید' name='courseTeacherName' defaultValue={(course as any)?.courseTeacherName} />
-        </label>
+        </label> */}
+        <select  
+     {...register("courseTeacherName", {
+      required: true,
+    
+    })}
+            >
+      {teachers.length && teachers.map((teacher:any)=><option value={`${teacher._id}`}>{teacher?.fullName}</option>)}
+        </select>
+
+
         {errors?.img?.message && <p className={`${styled.error}`}>{errors?.img?.message}</p>}
         <div className="">
         <FontAwesomeIcon

@@ -35,12 +35,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     else if (req.method == "PUT") {
         try {
-            const { courseName, coursePrice, courseTeacherName, courseImage } = req.body;
+            const { courseName, coursePrice, teacherId, courseImage } = req.body;
            
             if (
                 courseName.trim().length < 2 ||
                 coursePrice<100000 ||
-                courseTeacherName.trim().length < 3
+                !teacherId
                 
             ) {
                 return res.status(422).json({ message: "data not valid" });
@@ -52,7 +52,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 
 
-            const updateCourse = await courseModel.findOneAndUpdate({ _id: courseId }, { courseName, coursePrice, courseTeacherName, courseImage })
+            const updateCourse = await courseModel.findOneAndUpdate({ _id: courseId }, { courseName, coursePrice, teacherId, courseImage })
 
 
             if (updateCourse) return res.status(200).json({ message: `update course with id=${courseId}` });

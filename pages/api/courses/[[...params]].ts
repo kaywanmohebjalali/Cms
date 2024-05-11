@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import connectToDB from "../../../utils/db";
 import courseModel from '../../../models/courses'
+import { isValidObjectId } from "mongoose";
 
 
 async function handler(req:NextApiRequest, res:NextApiResponse){
@@ -32,24 +33,32 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
     case "POST":
      try {
-      const { courseName, coursePrice, courseTeacherName, courseImage} = req.body;
+      const { courseName, coursePrice, teacherId, courseImage} = req.body;
      
+      if (!isValidObjectId(teacherId))  return res.status(422).json({ message: `teacher is not valid` });
+      
+
+      
       if (
         courseName.trim().length < 2 ||
         coursePrice<100000 ||
-        courseTeacherName.trim().length < 3||
+        !teacherId||
         !courseImage
       ) {
+
+        
         return res.status(422).json({ message: "data not valid" });
       }
-
+      
       const checkCourse= await courseModel.findOne({courseName:courseName})
       
       if(checkCourse)return res.status(409).json({ message: "There is a course on the database"});
-
-
-
-     const course =  await courseModel.create({ courseName, coursePrice, courseTeacherName, courseImage })
+      
+      
+      
+      const course =  await courseModel.create({ courseName, coursePrice, teacherId, courseImage })
+      console.log('courseTeacherName : ',course);
+     
      
      if(course)return res.status(201).json({ message: "create new course", course: course });
     
@@ -57,6 +66,8 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
      return res.status(500).json({ message: "error create new course"});
      
     } catch (error) {
+     
+      
        return res.status(500).json({ message: error});
       
      }

@@ -3,6 +3,7 @@ import Button from '../button/Button'
 import Modal from '../modal/Modal'
 import Form from '../formCourses/CoursesForm'
 
+
 interface typeCourse { 
   _id:any
   courseName:String,
@@ -15,6 +16,7 @@ interface typeCourse {
 
 const UpdateCourse = (course:typeCourse) => {
   
+
   
   return (
     <Modal>
