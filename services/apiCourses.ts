@@ -65,7 +65,7 @@ export async function createCourse(course: typeCourse) {
         });
 
         const data = await response.json()
-        console.log('data : ',data);
+
   
         return { data: data, statusCode: response?.status }
     } catch (error) {

@@ -15,6 +15,7 @@ interface typeCourse {
   coursePrice: Number,
   courseTeacherName: String,
   courseImage: String
+  teacherId:any
 }
 
 const Courses = ({ courses,error }: {courses:[],error:any }) => {
@@ -27,7 +28,7 @@ const Courses = ({ courses,error }: {courses:[],error:any }) => {
       {/* {loading && <Spinner/>} */}
       {error && <p>{error}</p>} 
       {
-        courses?.length && !error? courses.map((course: typeCourse) => <CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course.courseTeacherName} />)
+        courses?.length && !error? courses.map((course: typeCourse) => <CourseItem key={course._id} _id={course._id} courseImage={course.courseImage} courseName={course.courseName} coursePrice={course.coursePrice} courseTeacherName={course?.teacherId?.fullName} />)
           : <h1>دوره ای یافت نشد</h1>
       }
       

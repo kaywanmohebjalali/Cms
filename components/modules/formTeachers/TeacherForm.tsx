@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBalanceScale, faEnvelope, faFile, faKey, faTag, faUser, faVoicemail, } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faFile, faKey,  faUser,  } from '@fortawesome/free-solid-svg-icons';
 config.autoAddCss = false;
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2'
 
-import styled from '@/styles/Form.module.scss'
+import styled from '@/styles/FormTeachers.module.scss'
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { ActionType, useStore } from '@/utils/store';
@@ -38,16 +38,14 @@ const TeacherForm = ({ title, textButton, status, teacher }: { title: String, te
 
   const loading = useStore((state: StateType) => state.loading)
   const setLoading = useStore((state: ActionType) => state.setLoading)
-  const setTeachers = useStore((state: ActionType) => state.setTeachers)
 
   const update = status == 'update'
-  // useEffect(() => setTeachers(teachers), [])
+
 
   const {
     register,
     handleSubmit,
     reset,
-    getValues,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: update ? teacher : {} as any,

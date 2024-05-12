@@ -11,18 +11,21 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
   switch (req.method) {
     case "GET":
+      
+      
        try {
         const query = req?.query
         let courses:any
         
         if(Object.keys(query).length){
        
-          courses =await courseModel.find({courseName:{$regex:query?.filter}});
+          courses =await courseModel.find({courseName:{$regex:query?.filter}}).populate('teacherId');
           
         }else{
-  
-          courses =await courseModel.find()
+          
+          courses =await courseModel.find().populate('teacherId');
         }
+        
         return res.json(courses);
       } catch (error) {
          return res.status(500).json({message:error});

@@ -22,7 +22,7 @@ const Schema = mongoose.Schema({
         type:String
     },
     teacherId:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:mongoose.Types.ObjectId,
         ref:"Teachers",
         required:true
     },

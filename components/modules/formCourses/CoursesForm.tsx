@@ -7,7 +7,7 @@ config.autoAddCss = false;
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2'
 
-import styled from '@/styles/Form.module.scss'
+import styled from '@/styles/FormCourses.module.scss'
 import { createCourse, updateCourse } from '@/services/apiCourses';
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
@@ -117,7 +117,6 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
 
             }
           } else {
-            console.log(courseImage);
             
             response = await createCourse({ courseName, coursePrice, teacherId:courseTeacherName, courseImage, _id: '' }) as any
             reset()
@@ -227,32 +226,36 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
         </label>
 
         {errors?.courseTeacherName?.message && <p className={`${styled.error}`}>{errors?.courseTeacherName?.message}</p>}
-        {/* <label htmlFor="courseTeacherName">
+        <label htmlFor="courseTeacherName" className={`${styled.labelSelect}`}>
 
-          <FontAwesomeIcon
-            icon={faUser}
-            className={`${styled.icon}`}
-          />
-          <input id='courseTeacherName' {...register("courseTeacherName", {
-            required: 'نام مدرس رو وارد کنید',
-            validate: (value) => {
-              return (
-                value.length > 2 ||
-                "باید نام مدرس بیشتر از 2 حرف باشد"
-
-              );
-
-            }
-          })} type="text" placeholder='نام مدرس رو وارد کنید' name='courseTeacherName' defaultValue={(course as any)?.courseTeacherName} />
-        </label> */}
-        <select  
+        <select className={`${styled.select}`} 
      {...register("courseTeacherName", {
-      required: true,
-    
-    })}
-            >
+       required: true,
+       validate: (value) => {
+        
+        return (
+          value.length > 1 ||
+          "باید نام مدرس  را انتخاب کنید"
+
+        );
+
+      }
+       
+      })}
+      >
+       
+
+        <option value="1" disabled>نام مدرس را انتخاب کنید</option>
       {teachers.length && teachers.map((teacher:any)=><option value={`${teacher._id}`}>{teacher?.fullName}</option>)}
+      
         </select>
+
+     </label>
+
+
+
+
+
 
 
         {errors?.img?.message && <p className={`${styled.error}`}>{errors?.img?.message}</p>}

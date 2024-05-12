@@ -1,17 +1,14 @@
 import AddCourse from "@/components/modules/addCourse/AddCourse";
 import Courses from "@/components/templates/Courses/Courses";
 import courseModel from '@/models/courses'
-import teacherModel from '@/models/teachers'
 import connectToDB from "@/utils/db";
-import { ActionType, StateType, useStore } from "@/utils/store";
-import { useEffect } from "react";
 
 
-const CoursePage = ({ courses, teachers, error }: { courses: [], teachers: [], error: any }) => {
 
-  const setTeachers = useStore((state: ActionType) => state.setTeachers)
+const CoursePage = ({ courses,  error }: { courses: [],  error: any }) => {
 
-  useEffect(() => setTeachers(teachers), [])
+
+
 
 
 
@@ -37,22 +34,24 @@ export async function getServerSideProps(context: any) {
     let courses: any
     if (Object.keys(query).length) {
 
-      courses = await courseModel.find({ courseName: { $regex: query?.filter } });
+      courses = await courseModel.find({ courseName: { $regex: query?.filter } }).populate('teacherId');;
 
     } else {
 
-      courses = await courseModel.find()
+      courses = await courseModel.find().populate('teacherId').populate('teacherId');;
     }
-    let teachers = await teacherModel.find()
+   
+
+    
 
     return {
-      props: { courses: JSON.parse(JSON.stringify(courses)), teachers: JSON.parse(JSON.stringify(teachers)), error: null },
+      props: { courses: JSON.parse(JSON.stringify(courses)), error: null },
 
     }
   } catch (error: any) {
 
     return {
-      props: { courses: error?.message, teachers: error?.message, error: error?.message },
+      props: { courses: error?.message, error: error?.message },
 
     }
 
