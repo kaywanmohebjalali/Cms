@@ -35,6 +35,6 @@ const Schema = mongoose.Schema({
 }
 )
 
-const model =mongoose?.models?.Teachers ||  mongoose.model('Teachers',Schema)
+const model =mongoose?.models?.Teachers ||  mongoose?.model('Teachers',Schema)
 
 export default model

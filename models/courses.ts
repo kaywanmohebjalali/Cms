@@ -1,7 +1,6 @@
 
 const mongoose =require('mongoose')
-
-
+ require('@/models/teachers')
 const Schema = mongoose.Schema({
     courseName:{
         type:String,

@@ -7,13 +7,6 @@ import connectToDB from "@/utils/db";
 
 const CoursePage = ({ courses,  error }: { courses: [],  error: any }) => {
 
-
-
-
-
-
-
-
   return <section className="container main">
     <div className="top-main">
       <h1>دوره ها</h1>
@@ -41,7 +34,7 @@ export async function getServerSideProps(context: any) {
       courses = await courseModel.find().populate('teacherId').populate('teacherId');;
     }
    
-
+  
     
 
     return {
