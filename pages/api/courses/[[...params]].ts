@@ -19,11 +19,11 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
         
         if(Object.keys(query).length){
        
-          courses =await courseModel.find({courseName:{$regex:query?.filter}}).populate('teacherId');
+          courses =await courseModel.find({courseName:{$regex:query?.filter}},['-__v']).populate('teacherId',['fullName']);
           
         }else{
           
-          courses =await courseModel.find().populate('teacherId');
+          courses =await courseModel.find({},'-courseImage -__v').populate('teacherId',['fullName']);
         }
         
         return res.json(courses);

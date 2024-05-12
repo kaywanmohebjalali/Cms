@@ -35,3 +35,6 @@ const Schema = mongoose.Schema({
 const model =mongoose?.models?.Courses ||  mongoose.model('Courses',Schema)
 
 export default model
+
+// Reference
+// Embedded

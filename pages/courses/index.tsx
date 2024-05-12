@@ -31,7 +31,7 @@ export async function getServerSideProps(context: any) {
 
     } else {
 
-      courses = await courseModel.find().populate('teacherId').populate('teacherId');;
+      courses = await courseModel.find({}).populate('teacherId');;
     }
    
   
