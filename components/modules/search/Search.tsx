@@ -10,36 +10,44 @@ import { useSearchParams } from 'next/navigation';
 config.autoAddCss = false;
 
 const Search = () => {
- 
-  
-  const {query}=useRouter() as any
-  const [param, setParam]=useState("")
-  const { replace, pathname} = useRouter();
 
 
 
- const searchParams = useSearchParams();
+  const { query, replace, pathname, asPath } = useRouter() as any
+  const [param, setParam] = useState("")
 
- const params = new URLSearchParams(searchParams);
-useEffect(()=>setParam(query?.filter),[])
 
- function setQueryHandler() {
-  if(param.trim().length>0){
 
-    params.set('filter', param);
-    replace(`${pathname}?${params.toString()}`);
-  }else{
-    replace(`${pathname}`);
+  const searchParams = useSearchParams();
+
+  const params = new URLSearchParams(searchParams);
+  useEffect(() => {
+    if (query?.filter) {
+
+      setParam(query?.filter)
+    } else {
+
+      setParam('')
+    }
+  }, [pathname])
+
+  function setQueryHandler() {
+    if (param?.trim()?.length > 0) {
+
+      params.set('filter', param);
+      replace(`${pathname}?${params.toString()}`);
+    } else {
+      replace(`${pathname}`);
+
+    }
 
   }
-    
- }
 
 
   return (
-      <div className='search'>
-        <input value={param}  onChange={(e)=>setParam(e.target.value)} className='search-input' type="text" placeholder='جستجو کنید...'/>
-          <FontAwesomeIcon onClick={setQueryHandler} className='search-icon'  icon={faSearch} />
+    <div className='search'>
+      <input value={param} onChange={(e) => setParam(e.target.value)} className='search-input' type="text" placeholder='جستجو کنید...' />
+      <FontAwesomeIcon onClick={setQueryHandler} className='search-icon' icon={faSearch} />
     </div>
   )
 }
