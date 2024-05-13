@@ -6,6 +6,7 @@ import courseModel from '../../../models/courses'
 
 import { isValidObjectId } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from "next";
+import courseValidate from "@/validator/course";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
 
@@ -16,7 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method == "GET") {
         try {
             if (!isValidObjectId(courseId)) return res.status(422).json({ message: `id is not valid` });
-            const course = await courseModel.findOne({ _id: courseId })
+            const course = await courseModel.findOne({ _id: courseId }).populate('comments').lean()
 
             if (course) {
                 return res.json({ course: course });
@@ -36,16 +37,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     else if (req.method == "PUT") {
         try {
             const { courseName, coursePrice, teacherId, courseImage } = req.body;
-           
-            if (
-                courseName.trim().length < 2 ||
-                coursePrice<100000 ||
-                !teacherId
-                
-            ) {
-                return res.status(422).json({ message: "data not valid" });
-            }
 
+            const resultValidation= courseValidate(req.body)
+            
+            if (resultValidation!==true) return res.status(422).json(resultValidation);
+            
             const isCourse = await courseModel.findOne({ _id: courseId })
             if (!isCourse)
                 return res.status(404).json({ message: `course not found with id=${courseId}` });
@@ -85,7 +81,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
             const DeletedCourse = await courseModel.findOneAndDelete({ _id: courseId })
             if (!DeletedCourse) return res.status(501).json({ message: `error delete course with id=${courseId}` });
-            
+
             return res.status(200).json({ message: `delete course with id=${courseId}` });
         } catch (error) {
             return res.status(500).json({ message: error });

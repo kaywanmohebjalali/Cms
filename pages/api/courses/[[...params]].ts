@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import connectToDB from "../../../utils/db";
 import courseModel from '../../../models/courses'
 import { isValidObjectId } from "mongoose";
+import courseValidate from "@/validator/course";
 
 
 async function handler(req:NextApiRequest, res:NextApiResponse){
@@ -36,22 +37,15 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
     case "POST":
      try {
-      const { courseName, coursePrice, teacherId, courseImage} = req.body;
+      const { courseName, coursePrice, teacherId, courseImage=''} = req.body;
      
+    
+      
       if (!isValidObjectId(teacherId))  return res.status(422).json({ message: `teacher is not valid` });
       
-
+      const resultValidation= courseValidate(req.body)
+      if (resultValidation!==true) return res.status(422).json(resultValidation);
       
-      if (
-        courseName.trim().length < 2 ||
-        coursePrice<100000 ||
-        !teacherId||
-        !courseImage
-      ) {
-
-        
-        return res.status(422).json({ message: "data not valid" });
-      }
       
       const checkCourse= await courseModel.findOne({courseName:courseName})
       
@@ -60,7 +54,6 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
       
       
       const course =  await courseModel.create({ courseName, coursePrice, teacherId, courseImage })
-      console.log('courseTeacherName : ',course);
      
      
      if(course)return res.status(201).json({ message: "create new course", course: course });

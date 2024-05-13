@@ -46,13 +46,9 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
         title.trim().length < 2 ||
         !courseId
       ) {
-
-        
         return res.status(422).json({ message: "data not valid" });
       }
-      
-      
-      
+
       
       
       const comment =  await commentModel.create({  title, courseId })

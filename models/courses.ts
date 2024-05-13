@@ -1,40 +1,45 @@
 
-const mongoose =require('mongoose')
- require('@/models/teachers')
+const mongoose = require('mongoose')
+require('@/models/teachers')
+require('@/models/Comments')
 const Schema = mongoose.Schema({
-    courseName:{
-        type:String,
-        required:true,
-        minLength:2,
+    courseName: {
+        type: String,
+        required: true,
+        minLength: 2,
 
-        index:true,
-        unique:true,
+        index: true,
+        unique: true,
 
     },
-    coursePrice:{
-        type:Number,
-        required:true,
-        min:100000
+    coursePrice: {
+        type: Number,
+        required: true,
+        min: 100000
     },
 
-       courseImage:{
-        type:String
+    courseImage: {
+        type: String
     },
-    teacherId:{
-        type:mongoose.Types.ObjectId,
-        ref:"Teachers",
-        required:true
+    teacherId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Teachers",
+        required: true
     },
 
 },
-{
-    timestamps:true,
-}
+    {
+        timestamps: true,
+    }
 )
 
-const model =mongoose?.models?.Courses ||  mongoose.model('Courses',Schema)
+Schema.virtual('comments', {
+    ref: 'Comments',
+    localField: '_id',
+    foreignField: 'courseId'
+})
+
+const model = mongoose?.models?.Courses || mongoose.model('Courses', Schema)
 
 export default model
 
-// Reference
-// Embedded

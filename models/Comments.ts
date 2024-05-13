@@ -1,6 +1,6 @@
 
 const mongoose =require('mongoose')
-
+require('./courses')
 
 const Schema = mongoose.Schema({
     title:{

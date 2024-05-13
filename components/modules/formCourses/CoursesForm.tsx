@@ -79,10 +79,11 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
 
 
   async function onSubmit(data: any) {
-
+  
     try {
-      const { courseName, coursePrice, courseTeacherName, img } = data
-
+      let { courseName, coursePrice, courseTeacherName, img } = data
+   coursePrice=+coursePrice;
+  
 
       const readerImg = new FileReader()
 
@@ -117,7 +118,7 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
 
             }
           } else {
-            
+   
             response = await createCourse({ courseName, coursePrice, teacherId:courseTeacherName, courseImage, _id: '' }) as any
             reset()
           }
