@@ -23,6 +23,7 @@ export async function getServerSideProps(context: any) {
   const { query } = context
   try {
     connectToDB()
+    console.log('courses');
 
     let courses: any
     if (Object.keys(query).length) {

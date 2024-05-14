@@ -1,11 +1,12 @@
 import React from 'react'
 import Button from '../button/Button'
-import { deleteCourse } from '@/services/apiCourses'
 import { useRouter } from 'next/router'
-import { ActionType, StateType, useStore } from '@/utils/store'
 import Swal from 'sweetalert2'
+import { deleteTeacher } from '@/services/apiTeachers'
+import { ActionType,  useStore } from '@/utils/store'
+import { deleteAdmin } from '@/services/apiAdmins'
 
-const DeleteCourse = ({ id }: { id: any }) => {
+const DeleteAdmin = ({ id }: { id: any }) => {
   
   const setLoading = useStore((state:ActionType) => state.setLoading)
  const {replace}=useRouter()
@@ -15,24 +16,24 @@ const DeleteCourse = ({ id }: { id: any }) => {
 
     try {
       setLoading(true)
-      let response = await deleteCourse(id)
+      let response = await deleteAdmin(id)
       
       if (response?.statusCode == 200) {
         setLoading(false)
         Swal.fire({
           position: "center",
-          title: `delete Course  successfully`,
+          title: `delete admin  successfully`,
           icon: 'success',
           showConfirmButton: false,
           timer: 1800
         })
         
-        replace('/')
+        replace('/admins')
       } else {
         setLoading(false)
         Swal.fire({
           position: "center",
-          title: `can not Course deleted`,
+          title: `can not admin deleted`,
           icon: 'error',
           showConfirmButton: false,
           timer: 1800
@@ -59,4 +60,4 @@ const DeleteCourse = ({ id }: { id: any }) => {
   )
 }
 
-export default DeleteCourse
+export default DeleteAdmin

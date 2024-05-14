@@ -36,7 +36,10 @@ body {
   direction: rtl;
 }
 a{
- 
+  text-decoration: none;
+}
+a:visited{
+  color: #000;
 }
 
 

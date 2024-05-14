@@ -14,17 +14,17 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
     case "GET":
       
       
-       try {
+      try {
         const query = req?.query
         let courses:any
         
         if(Object.keys(query).length){
-       
+          
           courses =await courseModel.find({courseName:{$regex:query?.filter}},['-__v']).populate('teacherId',['fullName']);
           
         }else{
           
-          courses =await courseModel.find({},'-courseImage -__v').populate('teacherId',['fullName']);
+          courses =await courseModel.find({},'-__v').populate('teacherId',['fullName']);
         }
         
         return res.json(courses);
