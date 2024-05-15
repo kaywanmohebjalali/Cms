@@ -1,9 +1,12 @@
+import Login from '@/components/templates/Account/Login'
 import React from 'react'
 
-const Login = () => {
+const LoginPage = () => {
   return (
-    <div>Login</div>
+    <div className='container login'>
+      <Login/>
+    </div>
   )
 }
 
-export default Login
+export default LoginPage

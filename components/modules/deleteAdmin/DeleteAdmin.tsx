@@ -2,13 +2,12 @@ import React from 'react'
 import Button from '../button/Button'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
-import { deleteTeacher } from '@/services/apiTeachers'
-import { ActionType,  useStore } from '@/utils/store'
+import { useStore } from '@/utils/store'
 import { deleteAdmin } from '@/services/apiAdmins'
 
 const DeleteAdmin = ({ id }: { id: any }) => {
   
-  const setLoading = useStore((state:ActionType) => state.setLoading)
+  const setLoading = useStore((state:any) => state.setLoading)
  const {replace}=useRouter()
 
 

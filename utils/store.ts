@@ -14,10 +14,11 @@ export type ActionType = {
 
 
 
-export const useStore = create<StateType & ActionType>((set) => ({
+export const useStore = create<StateType | ActionType>((set) => ({
   teachers:[],
-  setTeachers: ((teachers: any) => set({ teachers: teachers })),
+  setTeachers: ((teachers) => set({ teachers: teachers })),
 
   loading: false,
-  setLoading: ((bool: any) => set({ loading: bool })),
+  setLoading: ((bool:any) => set({ loading: bool  })),
 }))
+

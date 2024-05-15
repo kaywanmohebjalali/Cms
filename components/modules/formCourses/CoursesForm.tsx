@@ -38,8 +38,8 @@ type Inputs = {
 const CoursesForm = ({ title, textButton, status, course }: { title: String, textButton: String, status: String, course?: typeCourse }) => {
   
   const [teachers, setTeachers]=useState([])
-  const loading = useStore((state: StateType) => state.loading)
-  const setLoading = useStore((state: ActionType) => state.setLoading)
+  const loading = useStore((state: any) => state.loading)
+  const setLoading = useStore((state: any) => state.setLoading)
   const { replace } = useRouter()
   const update = status == 'update'
 

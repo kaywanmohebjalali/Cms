@@ -13,7 +13,8 @@ interface typeAdmin {
   fullName: String,
   email: Number,
   password: String,
-  adminImage: String
+  adminImage: String,
+  status:String
 }
 
 
@@ -21,7 +22,7 @@ const Admins = ({ admins,error }: {admins:[],error:any }) => {
  
  
   
-  const loading = useStore((state: StateType) => state.loading)
+  const loading = useStore((state: any) => state.loading)
   
 
   return (
@@ -29,7 +30,7 @@ const Admins = ({ admins,error }: {admins:[],error:any }) => {
      
       {error && <p>{error}</p>} 
       {
-        admins?.length && !error? admins?.map((admin: typeAdmin) => <AdminItem key={admin._id} _id={admin._id} adminImage={admin.adminImage} fullName={admin.fullName} email={admin.email} password={admin.password} />)
+        admins?.length && !error? admins?.map((admin: typeAdmin) => <AdminItem key={admin._id} _id={admin._id} adminImage={admin.adminImage} fullName={admin.fullName} email={admin.email} password={admin.password} status={admin.status}/>)
           : <h1> ادمین یافت نشد</h1>
       }
       

@@ -36,7 +36,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     else if (req.method == "PUT") {
         try {
-            const { fullName, email, password, adminImage} = req.body;
+            const { fullName, email, password, adminImage,status} = req.body;
 
             const resultValidation= adminValidate(req.body)
             
@@ -48,7 +48,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 
 
-            const updateAdmin = await adminModel.findOneAndUpdate({ _id: adminId }, { fullName, email, password, adminImage })
+            const updateAdmin = await adminModel.findOneAndUpdate({ _id: adminId }, { fullName, email, password, adminImage,status })
 
 
             if (updateAdmin) return res.status(200).json({ message: `update admin with id=${adminId}` });

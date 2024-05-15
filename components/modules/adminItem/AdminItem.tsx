@@ -9,7 +9,8 @@ interface typeAdmin {
   fullName: String,
   email: Number,
   password: String,
-  adminImage: String
+  adminImage: String,
+  status:String
 }
 
 
@@ -23,6 +24,7 @@ const AdminItem = (admin:typeAdmin) => {
             <div className={`${styled.course}`}>
 
             <h3 className={`${styled.courseName}`}>نام ادمین : {admin.fullName} </h3>
+            <h3 className={`${styled.courseName}`}>وضعیت ادمین : {admin.status} </h3>
 
             </div>
         </div>

@@ -319,3 +319,15 @@ cursor: pointer;
 input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+
+
+
+.register,.login{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register div,.login div{
+  width: 100%;
+}

@@ -5,8 +5,12 @@ interface typeAdmin {
     email: String,
     password: String,
     adminImage?: String,
-
+    status:String
 }
+
+
+
+
 
 
 export async function getAdmins(filter: String | undefined) {
@@ -74,6 +78,24 @@ export async function createAdmin(admin: typeAdmin) {
 }
 
 
+export async function checkRegister() {
+
+    try {
+      
+        //   let  response = await fetch(`/api/admins`);
+  
+        // const data = await response.json()
+
+        // return { data, statusCode: response?.status }
+    } catch (error) {
+        throw new Error(`error checkRegister admins : ${error}`)
+    }
+
+}
+
+
+
+
 
 export async function updateAdmin(admin: typeAdmin) {
 
@@ -111,6 +133,26 @@ export async function deleteAdmin(id: any) {
         return { data: data, statusCode: response?.status }
     } catch (error) {
         throw new Error(`error delete admin : ${error}`)
+    }
+
+}
+
+
+
+
+
+
+export async function loginAdmin() {
+
+    try {
+      
+        //   let  response = await fetch(`/api/admins`);
+  
+        // const data = await response.json()
+
+        // return { data, statusCode: response?.status }
+    } catch (error) {
+        throw new Error(`error loginAdmin admins : ${error}`)
     }
 
 }

@@ -1,7 +1,6 @@
 import connectToDB from '@/utils/db';
 import React from 'react'
 import adminModel from '@/models/admins'
-import Teachers from '@/components/templates/Teachers/Teachers';
 import AddAdmin from '@/components/modules/addAdmin/AddAdmin';
 import Admins from '@/components/templates/Admins/Admins';
 

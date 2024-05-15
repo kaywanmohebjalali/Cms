@@ -34,7 +34,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
     case "POST":
      try {
-      const { fullName, email, password, adminImage='' } = req.body;
+      const { fullName, email, password, adminImage='' ,status} = req.body;
      
     
       
@@ -49,7 +49,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
       
       
       
-      const admin =  await adminModel.create({fullName, email, password, adminImage })
+      const admin =  await adminModel.create({fullName, email, password, adminImage,status })
      
      
      if(admin)return res.status(201).json({ message: "create new admin", admin: admin });

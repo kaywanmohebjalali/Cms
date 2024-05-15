@@ -25,6 +25,11 @@ const Schema = mongoose.Schema({
         minLength:5,
           
     },
+    status:{
+        type:String,
+        required:true,
+        minLength:4,
+    },
     adminImage:{
         type:String
     },
