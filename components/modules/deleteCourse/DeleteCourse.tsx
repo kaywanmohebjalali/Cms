@@ -7,7 +7,7 @@ import Swal from 'sweetalert2'
 
 const DeleteCourse = ({ id }: { id: any }) => {
   
-  const setLoading = useStore((state:ActionType) => state.setLoading)
+  const setLoading = useStore((state:any) => state.setLoading)
  const {replace}=useRouter()
 
 
@@ -27,7 +27,7 @@ const DeleteCourse = ({ id }: { id: any }) => {
           timer: 1800
         })
         
-        replace('/')
+        replace('/courses')
       } else {
         setLoading(false)
         Swal.fire({

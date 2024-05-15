@@ -126,7 +126,7 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
 
           if ([200, 201].includes(response?.statusCode)) {
             setLoading(false)
-            replace('/')
+            replace('/courses')
            
 
             Swal.fire({
@@ -229,7 +229,8 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
         {errors?.courseTeacherName?.message && <p className={`${styled.error}`}>{errors?.courseTeacherName?.message}</p>}
         <label htmlFor="courseTeacherName" className={`${styled.labelSelect}`}>
 
-        <select className={`${styled.select}`} 
+        <select defaultValue='1'
+        className={`${styled.select}`} 
      {...register("courseTeacherName", {
        required: true,
        validate: (value) => {

@@ -7,7 +7,7 @@ config.autoAddCss = false;
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2'
 
-import styled from '@/styles/FormTeachers.module.scss'
+import styled from '@/styles/FormCourses.module.scss'
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
@@ -241,7 +241,8 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
         update?(<div className="">{errors?.status?.message && <p className={`${styled.error}`}>{errors?.status?.message}</p>}
         <label htmlFor="status" className={`${styled.labelSelect}`}>
 
-<select className={`${styled.select}`}
+<select 
+className={`${styled.select}`}
   {...register("status", {
     required: true,
     validate: (value) => {
