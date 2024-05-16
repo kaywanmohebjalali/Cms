@@ -38,6 +38,7 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
 
   
 
+console.log('course  : ',course);
 console.log(course?.teacherId._id);
 
 
@@ -56,6 +57,7 @@ console.log(course?.teacherId._id);
      
   },[])
 
+console.log('course?.teacherId?._id : ',course?.teacherId?._id);
 
 
   const {
@@ -228,7 +230,8 @@ console.log(course?.teacherId._id);
         <label htmlFor="teacherId" className={`${styled.labelSelect}`}>
 
         {/* <select defaultValue={update?(course?.teacherId?._id):'1'} */}
-        <select  defaultValue='1'
+         <select  defaultValue={course?.teacherId._id || '1'}
+       
        
         className={`${styled.select}`} 
      {...register("teacherId", {
