@@ -3,14 +3,7 @@ import styled from '@/styles/courseItem.module.scss'
 
 import UpdateTeacher from '../updateTeacher/UpdateTeacher'
 import DeleteTeacher from '../deleteTeacher/DeleteTeacher'
-
-interface typeTeacher {
-  _id: any
-  fullName: String,
-  email: Number,
-  password: String,
-  teacherImage: String
-}
+import { typeTeacher } from '@/interfaces/teacher'
 
 const TeacherItem = (teacher:typeTeacher) => {
 

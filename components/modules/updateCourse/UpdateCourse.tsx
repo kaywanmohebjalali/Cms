@@ -2,15 +2,8 @@ import React from 'react'
 import Button from '../button/Button'
 import Modal from '../modal/Modal'
 import Form from '../formCourses/CoursesForm'
+import { typeCourse } from '@/interfaces/course'
 
-
-interface typeCourse { 
-  _id:any
-  courseName:String,
-   coursePrice:Number, 
-   courseTeacherName:String,
-    courseImage:any 
-  }
 
 
 

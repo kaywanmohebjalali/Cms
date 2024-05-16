@@ -37,6 +37,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     else if (req.method == "PUT") {
         try {
             const { courseName, coursePrice, teacherId, courseImage } = req.body;
+          
+            
 
             const resultValidation= courseValidate(req.body)
             
@@ -58,6 +60,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 .json({ message: `error update course with id=${courseId}` });
 
         } catch (error) {
+            
+            
             return res.status(500).json({ message: error });
 
         }

@@ -1,10 +1,4 @@
-interface typeTeacher {
-    _id: any
-    fullName: String,
-    email: Number,
-    password: String,
-    teacherImage?: String
-  }
+import { typeTeacher } from "@/interfaces/teacher";
 
 
 export async function getTeachers(filter: String | undefined) {

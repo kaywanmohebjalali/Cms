@@ -1,13 +1,13 @@
 import React from 'react'
 import Button from '../button/Button'
 import { useRouter } from 'next/router'
-import { StateType, useStore } from '@/utils/store'
+import {  useStore } from '@/utils/store'
 import Swal from 'sweetalert2'
 import { deleteTeacher } from '@/services/apiTeachers'
 
 const DeleteTeacher = ({ id }: { id: any }) => {
   
-  const setLoading = useStore((state:StateType) => state.setLoading)
+  const setLoading = useStore((state:any) => state.setLoading)
  const {replace}=useRouter()
 
 

@@ -1,16 +1,4 @@
-
-interface typeAdmin {
-    _id: any,
-    fullName: String,
-    email: String,
-    password: String,
-    adminImage?: String,
-    status:String
-}
-
-
-
-
+import { typeUser } from "@/interfaces/user";
 
 
 export async function getAdmins(filter: String | undefined) {
@@ -53,7 +41,7 @@ export async function getAdmin(id: any) {
 
 
 
-export async function createAdmin(admin: typeAdmin) {
+export async function createAdmin(admin: typeUser) {
 
     try {
         const response = await fetch(`/api/admins`, {
@@ -78,26 +66,11 @@ export async function createAdmin(admin: typeAdmin) {
 }
 
 
-export async function checkRegister() {
-
-    try {
-      
-        //   let  response = await fetch(`/api/admins`);
-  
-        // const data = await response.json()
-
-        // return { data, statusCode: response?.status }
-    } catch (error) {
-        throw new Error(`error checkRegister admins : ${error}`)
-    }
-
-}
 
 
 
 
-
-export async function updateAdmin(admin: typeAdmin) {
+export async function updateAdmin(admin: typeUser) {
 
     try {
         const response = await fetch(`/api/admins/${admin?._id}`, {
@@ -142,17 +115,3 @@ export async function deleteAdmin(id: any) {
 
 
 
-export async function loginAdmin() {
-
-    try {
-      
-        //   let  response = await fetch(`/api/admins`);
-  
-        // const data = await response.json()
-
-        // return { data, statusCode: response?.status }
-    } catch (error) {
-        throw new Error(`error loginAdmin admins : ${error}`)
-    }
-
-}

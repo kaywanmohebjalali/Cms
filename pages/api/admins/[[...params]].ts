@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import connectToDB from "../../../utils/db";
-import adminModel from '../../../models/admins'
-import adminValidate from "@/validator/admin";
+import userModel from '@/models/users'
+import userValidate from "@/validator/user";
 
 
 async function handler(req:NextApiRequest, res:NextApiResponse){
@@ -13,18 +13,18 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
     case "GET":
        try {
         const query = req?.query
-        let admins:any
+        let users:any
         
         if(Object.keys(query).length){
        
-          admins =await adminModel.find({adminName:{$regex:query?.filter}},['-__v'])
+          users =await userModel.find({firstName:{$regex:query?.filter}},['-__v'])
           
         }else{
           
-          admins =await adminModel.find({},'-__v')
+          users =await userModel.find({},'-__v')
         }
         
-        return res.json(admins);
+        return res.json(users);
       } catch (error) {
          return res.status(500).json({message:error});
         
@@ -34,25 +34,26 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
 
     case "POST":
      try {
-      const { fullName, email, password, adminImage='' ,status} = req.body;
+      const { firstName, lastName, userName, email, password, userImage='' ,role} = req.body;
      
     
       
       
-      const resultValidation= adminValidate(req.body)
+      const resultValidation= userValidate(req.body)
       if (resultValidation!==true) return res.status(422).json(resultValidation);
       
       
-      const checkAdmin= await adminModel.findOne({fullName:fullName})
+      const checkUser= await userModel.findOne({userName:userName})
       
-      if(checkAdmin)return res.status(409).json({ message: "There is a admin on the database"});
+      if(checkUser)return res.status(409).json({ message: "There is a admin on the database"});
       
       
       
-      const admin =  await adminModel.create({fullName, email, password, adminImage,status })
-     
-     
-     if(admin)return res.status(201).json({ message: "create new admin", admin: admin });
+      const user =  await userModel.create({ firstName, lastName, userName, email, password, userImage,role })
+      
+      
+      
+      if(user)return res.status(201).json({ message: "create new admin", user: user });
     
      
      return res.status(500).json({ message: "error create new admin"});
@@ -60,6 +61,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
     } catch (error) {
      
       
+      console.log('error  : ',error);
        return res.status(500).json({ message: error});
       
      }

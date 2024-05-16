@@ -1,27 +1,27 @@
 import React from 'react'
 import Button from '../button/Button'
 import Modal from '../modal/Modal'
-import AdminForm from '../formAdmins/AdminForm'
+import UserForm from '../formUsers/UserForm'
 
 
 
 
-const AddAdmin = () => {
+const AddUser = () => {
 
  
   return (
     <>
 <Modal>
 
-<Modal.Open opens='add-admin'>
+<Modal.Open opens='add-user'>
    <div className="">
     <Button  color='#fff' backGroundColor='green' boxShadow='var(--box-shadow-green)' width='100%'>اضافه کردن ادمین جدید </Button>
 
    </div>
 </Modal.Open >
-<Modal.Window name='add-admin'>
+<Modal.Window name='add-user'>
   
- <AdminForm  status='create' title='اطلاعات ادمین رو وارد کنید' textButton='اضافه کردن ادمین'/>
+ <UserForm  statusForm='create' title='اطلاعات ادمین رو وارد کنید' textButton='اضافه کردن ادمین'/>
 </Modal.Window>
 
 </Modal>
@@ -29,4 +29,4 @@ const AddAdmin = () => {
   )
 }
 
-export default AddAdmin
+export default AddUser

@@ -2,7 +2,7 @@ import React from 'react'
 import Button from '../button/Button'
 import { deleteCourse } from '@/services/apiCourses'
 import { useRouter } from 'next/router'
-import { ActionType, StateType, useStore } from '@/utils/store'
+import {  useStore } from '@/utils/store'
 import Swal from 'sweetalert2'
 
 const DeleteCourse = ({ id }: { id: any }) => {

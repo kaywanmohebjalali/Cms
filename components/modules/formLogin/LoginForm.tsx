@@ -12,7 +12,7 @@ import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { ActionType, useStore } from '@/utils/store';
 import { StateType } from '@/utils/store';
-import { createAdmin, updateAdmin } from '@/services/apiAdmins';
+import { createAdmin, updateAdmin } from '@/services/apiAuth';
 
 
 

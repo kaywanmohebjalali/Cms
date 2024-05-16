@@ -1,4 +1,4 @@
-import AdminForm from '@/components/modules/formAdmins/AdminForm'
+import AdminForm from '@/components/modules/formUsers/AdminForm'
 import React from 'react'
 
 const Register = () => {

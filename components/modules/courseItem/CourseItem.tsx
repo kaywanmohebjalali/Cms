@@ -2,14 +2,9 @@ import React from 'react'
 import styled from '@/styles/courseItem.module.scss'
 import DeleteCourse from '../deleteCourse/DeleteCourse'
 import UpdateCourse from '../updateCourse/UpdateCourse'
+import { typeCourse } from '@/interfaces/course'
 
-interface typeCourse { 
-  _id:any
-  courseName:String,
-   coursePrice:Number, 
-   courseTeacherName:String,
-    courseImage:String 
-  }
+
 
 const CourseItem = (course:typeCourse) => {
  
@@ -22,7 +17,7 @@ const CourseItem = (course:typeCourse) => {
 
             <h3 className={`${styled.courseName}`}>نام دوره : {course.courseName} </h3>
             <h3 className={`${styled.coursePrice}`}>قیمت :  {String(course.coursePrice)} </h3>
-            <h3 className={`${styled.courseTeacherName}`}>نام مدرس : {course.courseTeacherName} </h3>
+            <h3 className={`${styled.courseTeacherName}`}>نام مدرس : {course.teacherId.fullName} </h3>
 
             </div>
         </div>

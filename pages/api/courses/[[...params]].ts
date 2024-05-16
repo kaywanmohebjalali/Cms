@@ -39,6 +39,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
      try {
       const { courseName, coursePrice, teacherId, courseImage=''} = req.body;
      
+    console.log(teacherId);
     
       
       if (!isValidObjectId(teacherId))  return res.status(422).json({ message: `teacher is not valid` });

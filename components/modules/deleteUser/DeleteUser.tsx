@@ -3,9 +3,9 @@ import Button from '../button/Button'
 import { useRouter } from 'next/router'
 import Swal from 'sweetalert2'
 import { useStore } from '@/utils/store'
-import { deleteAdmin } from '@/services/apiAdmins'
+import { deleteAdmin } from '@/services/apiAuth'
 
-const DeleteAdmin = ({ id }: { id: any }) => {
+const DeleteUser = ({ id }: { id: any }) => {
   
   const setLoading = useStore((state:any) => state.setLoading)
  const {replace}=useRouter()
@@ -59,4 +59,4 @@ const DeleteAdmin = ({ id }: { id: any }) => {
   )
 }
 
-export default DeleteAdmin
+export default DeleteUser

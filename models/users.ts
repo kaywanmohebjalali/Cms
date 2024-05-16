@@ -3,7 +3,17 @@ const mongoose =require('mongoose')
 
 
 const Schema = mongoose.Schema({
-    fullName:{
+    firstName:{
+        type:String,
+        required:true,
+        minLength:2,
+    },
+    lastName:{
+        type:String,
+        required:true,
+        minLength:2, 
+    },
+    userName:{
         type:String,
         required:true,
         minLength:2,
@@ -25,12 +35,14 @@ const Schema = mongoose.Schema({
         minLength:5,
           
     },
-    status:{
+    role:{
         type:String,
         required:true,
         minLength:4,
+        enum:['admin','superAdmin'],
+        default:'admin'
     },
-    adminImage:{
+    userImage:{
         type:String
     },
   
@@ -40,6 +52,6 @@ const Schema = mongoose.Schema({
 }
 )
 
-const model =mongoose?.models?.Admins ||  mongoose?.model('Admins',Schema)
+const model =mongoose?.models?.Users  ||  mongoose?.model('Users',Schema)
 
 export default model

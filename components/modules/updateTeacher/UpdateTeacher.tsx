@@ -2,15 +2,9 @@ import React from 'react'
 import Button from '../button/Button'
 import Modal from '../modal/Modal'
 import TeacherForm from '../formTeachers/TeacherForm'
+import { typeTeacher } from '@/interfaces/teacher'
 
 
-interface typeTeacher {
-  _id: any
-  fullName: String,
-  email: Number,
-  password: String,
-  teacherImage: String
-}
 
 
 

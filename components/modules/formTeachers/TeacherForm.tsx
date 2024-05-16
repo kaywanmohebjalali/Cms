@@ -13,16 +13,9 @@ import Spinner from '../spinner/Spinner';
 import { ActionType, useStore } from '@/utils/store';
 import { StateType } from '@/utils/store';
 import { createTeacher, updateTeacher } from '@/services/apiTeachers';
+import { typeTeacher } from '@/interfaces/teacher';
 
 
-
-interface typeTeacher {
-  _id: any
-  fullName: String,
-  email: Number,
-  password: String,
-  teacherImage: String
-}
 
 
 type Inputs = {
@@ -36,8 +29,8 @@ type Inputs = {
 
 const TeacherForm = ({ title, textButton, status, teacher }: { title: String, textButton: String, status: String, teacher?: typeTeacher }) => {
 
-  const loading = useStore((state: StateType) => state.loading)
-  const setLoading = useStore((state: ActionType) => state.setLoading)
+  const loading = useStore((state: any) => state.loading)
+  const setLoading = useStore((state: any) => state.setLoading)
 
   const update = status == 'update'
 

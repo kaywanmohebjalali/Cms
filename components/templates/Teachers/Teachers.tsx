@@ -3,25 +3,19 @@ import styled from '@/styles/Courses.module.scss'
 
 import { StateType, useStore } from '@/utils/store'
 import TeacherItem from '@/components/modules/teacherItem/TeacherItem'
+import { typeTeacher } from '@/interfaces/teacher'
 
 
 
 
 
 
-interface typeTeacher {
-  _id: any
-  fullName: String,
-  email: Number,
-  password: String,
-  teacherImage: String
-}
 
 const Teachers = ({ teachers,error }: {teachers:[],error:any }) => {
  
  
   
-  const loading = useStore((state: StateType) => state.loading)
+  const loading = useStore((state: any) => state.loading)
   
 
   return (

@@ -1,12 +1,14 @@
+// import { typeCourse } from "@/interfaces/course";
+
+
 
 interface typeCourse {
-    _id: any,
+    _id: any
     courseName: String,
     coursePrice: Number,
-    courseImage?: any,
-    teacherId: String,
-}
-
+    courseImage?: String
+    teacherId?:any
+  }
 
 export async function getCourses(filter: String | undefined) {
 
@@ -81,7 +83,8 @@ export async function createCourse(course: typeCourse) {
 
 export async function updateCourse(course: typeCourse) {
 
-
+ 
+  
     try {
         const response = await fetch(`/api/courses/${course?._id}`, {
             method: 'PUT',

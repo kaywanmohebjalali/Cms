@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect,  useState } from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBalanceScale, faFile, faTag, faUser, } from '@fortawesome/free-solid-svg-icons';
+import { faBalanceScale, faFile, faTag } from '@fortawesome/free-solid-svg-icons';
 config.autoAddCss = false;
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2'
@@ -12,24 +12,17 @@ import { createCourse, updateCourse } from '@/services/apiCourses';
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
-import { StateType,ActionType } from '@/utils/store';
 import { getTeachers } from '@/services/apiTeachers';
+import { typeCourse } from '@/interfaces/course';
 
 
 
-interface typeCourse {
-  _id: any
-  courseName: String,
-  coursePrice: Number,
-  courseTeacherName: String,
-  courseImage: String
-}
 
 
 type Inputs = {
   courseName: string,
   coursePrice: number,
-  courseTeacherName: string
+  teacherId: string
   img?: string
 
 }
@@ -43,6 +36,9 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
   const { replace } = useRouter()
   const update = status == 'update'
 
+  
+
+console.log(course?.teacherId._id);
 
 
   useEffect(()=>{
@@ -66,7 +62,6 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
     register,
     handleSubmit,
     reset,
-    getValues,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: update ? course : {} as any,
@@ -81,9 +76,12 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
   async function onSubmit(data: any) {
   
     try {
-      let { courseName, coursePrice, courseTeacherName, img } = data
+      let { courseName, coursePrice, teacherId, img } = data
+      
+      console.log('teacherId : ',teacherId);
+      teacherId=teacherId._id?teacherId._id:teacherId
+      
    coursePrice=+coursePrice;
-  
 
       const readerImg = new FileReader()
 
@@ -111,16 +109,16 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
           if (update) {
             if (img[0]) {
 
-              response = await updateCourse({ courseName, coursePrice, teacherId:courseTeacherName, courseImage, _id: course?._id }) as any
+              response = await updateCourse({ courseName, coursePrice, teacherId:teacherId, courseImage, _id: course?._id }) as any
             } else {
 
-              response = await updateCourse({ courseName, coursePrice, teacherId:courseTeacherName, _id: course?._id }) as any
+              response = await updateCourse({ courseName, coursePrice, teacherId:teacherId, _id: course?._id }) as any
 
             }
           } else {
    
-            response = await createCourse({ courseName, coursePrice, teacherId:courseTeacherName, courseImage, _id: '' }) as any
-            reset()
+            response = await createCourse({ courseName, coursePrice, teacherId:teacherId, courseImage, _id: '' }) as any
+            // reset()
           }
 
 
@@ -226,17 +224,19 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
           })} type="number" placeholder='قیمت دوره رو وارد کنید' name='coursePrice' defaultValue={(course as any)?.coursePrice} />
         </label>
 
-        {errors?.courseTeacherName?.message && <p className={`${styled.error}`}>{errors?.courseTeacherName?.message}</p>}
-        <label htmlFor="courseTeacherName" className={`${styled.labelSelect}`}>
+        {errors?.teacherId?.message && <p className={`${styled.error}`}>{errors?.teacherId?.message}</p>}
+        <label htmlFor="teacherId" className={`${styled.labelSelect}`}>
 
-        <select defaultValue='1'
+        {/* <select defaultValue={update?(course?.teacherId?._id):'1'} */}
+        <select  defaultValue='1'
+       
         className={`${styled.select}`} 
-     {...register("courseTeacherName", {
+     {...register("teacherId", {
        required: true,
-       validate: (value) => {
-        
+       validate: (value:any) => {
+      
         return (
-          value.length > 1 ||
+          value!='1' ||
           "باید نام مدرس  را انتخاب کنید"
 
         );
@@ -247,7 +247,7 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
       >
        
 
-        <option value="1" disabled>نام مدرس را انتخاب کنید</option>
+        <option  value="1" disabled>نام مدرس را انتخاب کنید</option>
       {teachers.length && teachers.map((teacher:any)=><option value={`${teacher._id}`}>{teacher?.fullName}</option>)}
       
         </select>

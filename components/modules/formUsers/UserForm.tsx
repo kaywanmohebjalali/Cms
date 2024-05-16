@@ -13,36 +13,31 @@ import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
 
 
-import { createAdmin, updateAdmin } from '@/services/apiAdmins';
+import { createAdmin, updateAdmin } from '@/services/apiAuth';
+import { typeUser } from '@/interfaces/user';
 
 
 
-interface typeAdmin {
-  _id: any
-  fullName: String,
-  email: Number,
-  password: String,
-  adminImage: String
-  status: String
-}
 
 
 type Inputs = {
-  fullName: string,
+  firstName: String,
+  lastName: String,
+  userName: String,
   email: string,
   password: string
   img?: string,
-  status: String
+  role: String
 
 }
 
 
-const AdminForm = ({ title, textButton, status, admin }: { title: String, textButton: String, status: String, admin?: typeAdmin }) => {
+const UserForm = ({ title, textButton, statusForm, user }: { title: String, textButton: String, statusForm: String, user?: typeUser }) => {
 
   const loading = useStore((state: any) => state.loading)
   const setLoading = useStore((state: any) => state.setLoading)
 
-  const update = status == 'update'
+  const update = statusForm == 'update'
 
 
   const {
@@ -51,7 +46,7 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
     reset,
     formState: { errors },
   } = useForm<Inputs>({
-    defaultValues: update ? admin : {} as any,
+    defaultValues: update ? user : {} as any,
   })
 
 
@@ -65,7 +60,7 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
   async function onSubmit(data: any) {
 
     try {
-      const { fullName, email, password, img, status } = data
+      const { firstName,lastName,userName, email, password, img, role } = data
 
 
       const readerImg = new FileReader()
@@ -80,10 +75,10 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
 
       readerImg.onload = async () => {
         {
-          let adminImage: any
+          let userImage: any
 
           if (img) {
-            adminImage = readerImg?.result
+            userImage = readerImg?.result
           }
 
 
@@ -94,15 +89,15 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
           if (update) {
             if (img[0]) {
 
-              response = await updateAdmin({ fullName, email, password, adminImage, _id: admin?._id, status }) as any
+              response = await updateAdmin({ firstName,lastName,userName, email, password, userImage, _id: user?._id, role }) as any
             } else {
 
-              response = await updateAdmin({ fullName, email, password, _id: admin?._id, status }) as any
+              response = await updateAdmin({ firstName,lastName,userName, email, password, _id: user?._id, role }) as any
 
             }
           } else {
 
-            response = await createAdmin({ fullName, email, password, adminImage, _id: '', status: 'admin' }) as any
+            response = await createAdmin({ firstName,lastName,userName,email, password, userImage, _id: '' }) as any
             reset()
           }
 
@@ -114,7 +109,7 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
 
             Swal.fire({
               position: "center",
-              title: `admin ${status}  successfully`,
+              title: `admin  ${statusForm}  successfully`,
               icon: 'success',
               showConfirmButton: false,
               timer: 1800
@@ -124,7 +119,7 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
             setLoading(false)
             Swal.fire({
               position: "center",
-              title: `can not admin ${status}`,
+              title: `can not admin ${statusForm}`,
               icon: 'error',
               showConfirmButton: false,
               timer: 1800
@@ -165,7 +160,7 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
       <form className={`${styled.form}`} onSubmit={handleSubmit(onSubmit, onError)}>
         <h3 className={`${styled.title}`}>{title}</h3>
 
-        {errors?.fullName?.message && <p className={`${styled.error}`}>{errors?.fullName?.message}</p>}
+        {errors?.firstName?.message && <p className={`${styled.error}`}>{errors?.firstName?.message}</p>}
         <label htmlFor="fullName">
 
 
@@ -174,8 +169,8 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
             className={`${styled.icon}`}
 
           />
-          <input id='fullName'
-            {...register("fullName", {
+          <input id='firstName'
+            {...register("firstName", {
               required: 'نام ادمین رو وارد کنید',
               validate: (value) => {
 
@@ -187,11 +182,70 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
               },
               min: {
                 value: 2,
-                message: "باید نام ادمین بیشتر از 1 حرف باشد"
+                message: "باید نام خانوادگی ادمین بیشتر از 1 حرف باشد"
               }
-            })} type="text" placeholder='نام ادمین رو وارد کنید' defaultValue={(admin as any)?.fullName} />
+            })} type="text" placeholder='نام ادمین رو وارد کنید' defaultValue={(user as any)?.firstName} />
 
         </label >
+
+
+        {errors?.lastName?.message && <p className={`${styled.error}`}>{errors?.lastName?.message}</p>}
+        <label htmlFor="lastName">
+
+
+          <FontAwesomeIcon
+            icon={faUser}
+            className={`${styled.icon}`}
+
+          />
+          <input id='lastName'
+            {...register("lastName", {
+              required: 'نام خانوادگی رو وارد کنید',
+              validate: (value) => {
+
+                return (
+                  value?.length > 1 ||
+                  "باید نام خانوادگی بیشتر از 1 حرف باشد"
+
+                );
+              },
+              min: {
+                value: 2,
+                message: "باید نام خانوادگی بیشتر از 1 حرف باشد"
+              }
+            })} type="text" placeholder='نام خانوادگی رو وارد کنید' defaultValue={(user as any)?.lastName} />
+
+        </label >
+
+
+        {errors?.userName?.message && <p className={`${styled.error}`}>{errors?.userName?.message}</p>}
+        <label htmlFor="userName">
+
+
+          <FontAwesomeIcon
+            icon={faUser}
+            className={`${styled.icon}`}
+
+          />
+          <input id='userName'
+            {...register("userName", {
+              required: 'نام  کاربری رو وارد کنید',
+              validate: (value) => {
+
+                return (
+                  value?.length > 1 ||
+                  "باید نام کاربری بیشتر از 1 حرف باشد"
+
+                );
+              },
+              min: {
+                value: 2,
+                message: "باید نام کاربری بیشتر از 1 حرف باشد"
+              }
+            })} type="text" placeholder='نام کاربری رو وارد کنید' defaultValue={(user as any)?.userName} />
+
+        </label >
+
 
 
 
@@ -205,7 +259,7 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
           <input id='email'  {...register("email", {
             required: 'ایمیل رو وارد کنید',
 
-          })} type="email" placeholder=' ایمیل رو وارد کنید' name='email' defaultValue={(admin as any)?.email} />
+          })} type="email" placeholder=' ایمیل رو وارد کنید' name='email' defaultValue={(user as any)?.email} />
         </label>
 
 
@@ -228,7 +282,7 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
               );
 
             }
-          })} type="password" placeholder=' رمز رو وارد کنید' name='password' defaultValue={(admin as any)?.password} />
+          })} type="password" placeholder=' رمز رو وارد کنید' name='password' defaultValue={(user as any)?.password} />
         </label>
 
 
@@ -238,12 +292,12 @@ const AdminForm = ({ title, textButton, status, admin }: { title: String, textBu
 
 
         {
-        update?(<div className="">{errors?.status?.message && <p className={`${styled.error}`}>{errors?.status?.message}</p>}
-        <label htmlFor="status" className={`${styled.labelSelect}`}>
+        update?(<div className="">{errors?.role?.message && <p className={`${styled.error}`}>{errors?.role?.message}</p>}
+        <label htmlFor="role" className={`${styled.labelSelect}`}>
 
 <select 
 className={`${styled.select}`}
-  {...register("status", {
+  {...register("role", {
     required: true,
     validate: (value) => {
 
@@ -305,4 +359,4 @@ className={`${styled.select}`}
   )
 }
 
-export default AdminForm
+export default UserForm

@@ -1,17 +1,17 @@
 import connectToDB from '@/utils/db';
 import React from 'react'
-import adminModel from '@/models/admins'
-import AddAdmin from '@/components/modules/addAdmin/AddAdmin';
-import Admins from '@/components/templates/Admins/Admins';
+import userModel from '@/models/users'
+import AddUser from '@/components/modules/addUser/AddUser';
+import Users from '@/components/templates/Users/Users';
 
-const AdminPage = ({ admins, error }: { admins: [], error: any }) => {
+const AdminPage = ({ users, error }: { users: [], error: any }) => {
   
   return <section className="container main">
     <div className="top-main">
       <h1> ادمین ها</h1>
-      <AddAdmin />
+      <AddUser />
     </div>
-    <Admins  admins={admins} error={error} />
+    <Users  users={users} error={error} />
   </section>
 };
 
@@ -22,24 +22,24 @@ export async function getServerSideProps(context: any) {
   try {
     connectToDB()
    
-    let admins: any
+    let users: any
     if (Object.keys(query).length) {
 
-      admins = await adminModel.find({ fullName: { $regex: query?.filter } });
+      users = await userModel.find({ firstName: { $regex: query?.filter } });
 
     } else {
 
-      admins = await adminModel.find()
+      users = await userModel.find()
     }
 
     return {
-      props: { admins: JSON.parse(JSON.stringify(admins)), error: null },
+      props: { users: JSON.parse(JSON.stringify(users)), error: null },
 
     }
   } catch (error: any) {
 
     return {
-      props: { admins: error?.message, error: error?.message },
+      props: { users: error?.message, error: error?.message },
 
     }
 

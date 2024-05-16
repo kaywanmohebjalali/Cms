@@ -1,9 +1,5 @@
+import { typeComment } from "@/interfaces/comment";
 
-interface typeComment {
-    _id: any,
-    title: String,
-    courseId: String,
-}
 
 
 export async function getComments(filter: String | undefined) {
