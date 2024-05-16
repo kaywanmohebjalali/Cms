@@ -13,8 +13,9 @@ import Spinner from '../spinner/Spinner';
 import { useStore } from '@/utils/store';
 
 
-import { createAdmin, updateAdmin } from '@/services/apiAuth';
+
 import { typeUser } from '@/interfaces/user';
+import { createUser, updateUser } from '@/services/apiAuth';
 
 
 
@@ -89,15 +90,15 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
           if (update) {
             if (img[0]) {
 
-              response = await updateAdmin({ firstName, lastName, userName, email, password, userImage, _id: user?._id, role }) as any
+              response = await updateUser({ firstName, lastName, userName, email, password, userImage, _id: user?._id, role }) as any
             } else {
 
-              response = await updateAdmin({ firstName, lastName, userName, email, password, _id: user?._id, role }) as any
+              response = await updateUser({ firstName, lastName, userName, email, password, _id: user?._id, role }) as any
 
             }
           } else {
 
-            response = await createAdmin({ firstName, lastName, userName, email, password, userImage, _id: '', role: 'admin' }) as any
+            response = await createUser({ firstName, lastName, userName, email, password, userImage, _id: '', role: 'admin' }) as any
             reset()
           }
 
@@ -161,7 +162,7 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
         <h3 className={`${styled.title}`}>{title}</h3>
 
         {errors?.firstName?.message && <p className={`${styled.error}`}>{errors?.firstName?.message}</p>}
-        <label htmlFor="fullName">
+        <label htmlFor="firstName">
 
 
           <FontAwesomeIcon

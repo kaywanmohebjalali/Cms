@@ -1,15 +1,15 @@
 import { typeUser } from "@/interfaces/user";
 
 
-export async function getAdmins(filter: String | undefined) {
+export async function getUsers(filter: String | undefined) {
 
     try {
         let response;
         if (!filter) {
 
-            response = await fetch(`/api/admins`);
+            response = await fetch(`/api/auth`);
         } else {
-            response = await fetch(`/api/admins/?filter=${filter}`);
+            response = await fetch(`/api/auth/?filter=${filter}`);
 
         }
 
@@ -17,18 +17,18 @@ export async function getAdmins(filter: String | undefined) {
 
         return { data, statusCode: response?.status }
     } catch (error) {
-        throw new Error(`error get admins : ${error}`)
+        throw new Error(`error get users : ${error}`)
     }
 
 }
 
 
 
-export async function getAdmin(id: any) {
+export async function getMe(id: any) {
 
 
     try {
-        const response = await fetch(`/api/admins/${id}`);
+        const response = await fetch(`/api/auth/${id}`);
 
         const data = await response.json()
 
@@ -41,16 +41,16 @@ export async function getAdmin(id: any) {
 
 
 
-export async function createAdmin(admin: typeUser) {
+export async function createUser(user: typeUser) {
 
     try {
-        const response = await fetch(`/api/admins`, {
+        const response = await fetch(`/api/auth/signup`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(admin)
+            body: JSON.stringify(user)
         });
 
         const data = await response.json()
@@ -60,7 +60,7 @@ export async function createAdmin(admin: typeUser) {
     } catch (error) {
 
 
-        throw new Error(`error create admins : ${error}`)
+        throw new Error(`error create user : ${error}`)
     }
 
 }
@@ -70,24 +70,24 @@ export async function createAdmin(admin: typeUser) {
 
 
 
-export async function updateAdmin(admin: typeUser) {
+export async function updateUser(user: typeUser) {
   
   
     try {
-        const response = await fetch(`/api/admins/${admin?._id}`, {
+        const response = await fetch(`/api/auth/${user?._id}`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(admin)
+            body: JSON.stringify(user)
         });
 
         const data = await response.json()
 
         return { data: data, statusCode: response?.status }
     } catch (error) {
-        throw new Error(`error update admin : ${error}`)
+        throw new Error(`error update user : ${error}`)
     }
 
 }
@@ -98,7 +98,7 @@ export async function deleteAdmin(id: any) {
 
 
     try {
-        const response = await fetch(`/api/admins/${id}`, {
+        const response = await fetch(`/api/auth/${id}`, {
             method: 'DELETE',
         });
 
@@ -106,7 +106,7 @@ export async function deleteAdmin(id: any) {
 
         return { data: data, statusCode: response?.status }
     } catch (error) {
-        throw new Error(`error delete admin : ${error}`)
+        throw new Error(`error delete user : ${error}`)
     }
 
 }

@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import connectToDB from "../../../utils/db";
-import adminModel from '../../../models/users'
-import adminValidate from "@/validator/admin";
+import userModel from '../../../models/users'
+import userValidate from "@/validator/user";
 
 
 async function handler(req:NextApiRequest, res:NextApiResponse){
@@ -12,28 +12,28 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
   switch (req.method) {
     case "POST":
      try {
-      const { fullName, email, password, adminImage='' ,status} = req.body;
+      const { firstName, lastName, userName, email, password, userImage='' ,role} = req.body;
      
     
       
       
-      const resultValidation= adminValidate(req.body)
+      const resultValidation= userValidate(req.body)
       if (resultValidation!==true) return res.status(422).json(resultValidation);
       
       
-      const checkAdmin= await adminModel.findOne({fullName:fullName})
+      const checkUser= await userModel.findOne({email:email})
+
+      if(checkUser)return res.status(409).json({ message: "There is a user on the database"});
       
-      if(checkAdmin)return res.status(409).json({ message: "There is a admin on the database"});
       
       
-      
-      const admin =  await adminModel.create({fullName, email, password, adminImage,status })
+      const user =  await userModel.create({firstName, lastName, userName, email, password, userImage,role })
      
      
-     if(admin)return res.status(201).json({ message: "create new admin", admin: admin });
+     if(user)return res.status(201).json({ message: "create new user", user: user });
     
      
-     return res.status(500).json({ message: "error create new admin"});
+     return res.status(500).json({ message: "error create new user"});
      
     } catch (error) {
      
@@ -43,7 +43,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
      }
 
     default:
-      return res.json({ message: "admins" });
+      return res.json({ message: "users" });
   }
 }
 
