@@ -37,7 +37,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     else if (req.method == "PUT") {
         try {
             const { firstName, lastName, userName, email, password, adminImage,role} = req.body;
-
+            console.log('role : ',role);
             const resultValidation= userValidate(req.body)
             
             if (resultValidation!==true) return res.status(422).json(resultValidation);

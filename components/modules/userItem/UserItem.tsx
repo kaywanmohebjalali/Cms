@@ -8,6 +8,7 @@ import { typeUser } from '@/interfaces/user'
 
 
 const UserItem = (user:typeUser) => {
+console.log(user);
 
   
   return (
@@ -17,7 +18,7 @@ const UserItem = (user:typeUser) => {
             <div className={`${styled.course}`}>
 
             <h3 className={`${styled.courseName}`}>نام کاربری ادمین : {user.userName} </h3>
-            <h3 className={`${styled.courseName}`}>وضعیت ادمین : {user.status} </h3>
+            <h3 className={`${styled.courseName}`}>وضعیت ادمین : {user.role} </h3>
 
             </div>
         </div>

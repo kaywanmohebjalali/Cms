@@ -38,9 +38,6 @@ const CoursesForm = ({ title, textButton, status, course }: { title: String, tex
 
   
 
-console.log('course  : ',course);
-console.log(course?.teacherId._id);
-
 
   useEffect(()=>{
      async function getData() {
@@ -57,7 +54,8 @@ console.log(course?.teacherId._id);
      
   },[])
 
-console.log('course?.teacherId?._id : ',course?.teacherId?._id);
+  
+
 
 
   const {
@@ -66,7 +64,7 @@ console.log('course?.teacherId?._id : ',course?.teacherId?._id);
     reset,
     formState: { errors },
   } = useForm<Inputs>({
-    defaultValues: update ? course : {} as any,
+    defaultValues: update ? {...course, 'teacherId':course?.teacherId?._id} : {} as any,
   })
 
 
@@ -80,7 +78,6 @@ console.log('course?.teacherId?._id : ',course?.teacherId?._id);
     try {
       let { courseName, coursePrice, teacherId, img } = data
       
-      console.log('teacherId : ',teacherId);
       teacherId=teacherId._id?teacherId._id:teacherId
       
    coursePrice=+coursePrice;
@@ -229,8 +226,7 @@ console.log('course?.teacherId?._id : ',course?.teacherId?._id);
         {errors?.teacherId?.message && <p className={`${styled.error}`}>{errors?.teacherId?.message}</p>}
         <label htmlFor="teacherId" className={`${styled.labelSelect}`}>
 
-        {/* <select defaultValue={update?(course?.teacherId?._id):'1'} */}
-         <select  defaultValue={course?.teacherId._id || '1'}
+         <select  defaultValue={1} 
        
        
         className={`${styled.select}`} 
@@ -250,7 +246,7 @@ console.log('course?.teacherId?._id : ',course?.teacherId?._id);
       >
        
 
-        <option  value="1" disabled>نام مدرس را انتخاب کنید</option>
+        <option  value="1" >نام مدرس را انتخاب کنید</option>
       {teachers.length && teachers.map((teacher:any)=><option value={`${teacher._id}`}>{teacher?.fullName}</option>)}
       
         </select>

@@ -37,6 +37,7 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
       const { firstName, lastName, userName, email, password, userImage='' ,role} = req.body;
      
     
+      console.log(req.body);
       
       
       const resultValidation= userValidate(req.body)

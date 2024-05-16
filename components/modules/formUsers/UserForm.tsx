@@ -60,7 +60,7 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
   async function onSubmit(data: any) {
 
     try {
-      const { firstName,lastName,userName, email, password, img, role } = data
+      const { firstName, lastName, userName, email, password, img, role } = data
 
 
       const readerImg = new FileReader()
@@ -89,15 +89,15 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
           if (update) {
             if (img[0]) {
 
-              response = await updateAdmin({ firstName,lastName,userName, email, password, userImage, _id: user?._id, role }) as any
+              response = await updateAdmin({ firstName, lastName, userName, email, password, userImage, _id: user?._id, role }) as any
             } else {
 
-              response = await updateAdmin({ firstName,lastName,userName, email, password, _id: user?._id, role }) as any
+              response = await updateAdmin({ firstName, lastName, userName, email, password, _id: user?._id, role }) as any
 
             }
           } else {
 
-            response = await createAdmin({ firstName,lastName,userName,email, password, userImage, _id: '' }) as any
+            response = await createAdmin({ firstName, lastName, userName, email, password, userImage, _id: '', role: 'admin' }) as any
             reset()
           }
 
@@ -292,36 +292,36 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
 
 
         {
-        update?(<div className="">{errors?.role?.message && <p className={`${styled.error}`}>{errors?.role?.message}</p>}
-        <label htmlFor="role" className={`${styled.labelSelect}`}>
+          update ? (<div className="">{errors?.role?.message && <p className={`${styled.error}`}>{errors?.role?.message}</p>}
+            <label htmlFor="role" className={`${styled.labelSelect}`}>
 
-<select 
-className={`${styled.select}`}
-  {...register("role", {
-    required: true,
-    validate: (value) => {
+              <select
+                className={`${styled.select}`}
+                {...register("role", {
+                  required: true,
+                  validate: (value) => {
 
-      return (
-        value.length > 1 ||
-        "باید نام مدرس  را انتخاب کنید"
+                    return (
+                      value.length > 1 ||
+                      "باید نام مدرس  را انتخاب کنید"
 
-      );
+                    );
 
-    }
+                  }
 
-  })}
->
-
-
-  <option value="1" disabled>وضعیت ادمین  را انتخاب کنید</option>
-  <option value="admin" > admin</option>
-  <option value="superAdmin" > superAdmin   </option>
+                })}
+              >
 
 
+                <option value="1" disabled>وضعیت ادمین  را انتخاب کنید</option>
+                <option value="admin" > admin</option>
+                <option value="superAdmin" > superAdmin   </option>
 
-</select>
 
-</label></div>):''}
+
+              </select>
+
+            </label></div>) : ''}
 
 
 

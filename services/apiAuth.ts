@@ -71,7 +71,8 @@ export async function createAdmin(admin: typeUser) {
 
 
 export async function updateAdmin(admin: typeUser) {
-
+  
+  
     try {
         const response = await fetch(`/api/admins/${admin?._id}`, {
             method: 'PUT',
