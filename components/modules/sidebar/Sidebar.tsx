@@ -20,7 +20,7 @@ const Sidebar = () => {
       <Logo />
 
       <div className={`${styled.items}`}>
-        <Link href='/'>
+        <Link href='/courses'>
 
           <div className={`${styled.item} ${asPath?.includes('courses') ? styled.active : ''}`}>
             <span className={`${styled.point}  ${asPath?.includes('courses') ? styled.activePoint : ''}`}></span>

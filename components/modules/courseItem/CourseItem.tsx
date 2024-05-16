@@ -16,8 +16,8 @@ const CourseItem = (course:typeCourse) => {
             <div className={`${styled.course}`}>
 
             <h3 className={`${styled.courseName}`}>نام دوره : {course.courseName} </h3>
-            <h3 className={`${styled.coursePrice}`}>قیمت :  {String(course.coursePrice)} </h3>
-            <h3 className={`${styled.courseTeacherName}`}>نام مدرس : {course.teacherId.fullName} </h3>
+            <h3 className={`${styled.coursePrice}`}>قیمت :  {String(course?.coursePrice)} </h3>
+            <h3 className={`${styled.courseTeacherName}`}>نام مدرس : {course?.teacherId?.fullName} </h3>
 
             </div>
         </div>

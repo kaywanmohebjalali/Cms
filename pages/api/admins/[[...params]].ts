@@ -16,8 +16,9 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
         let users:any
         
         if(Object.keys(query).length){
-       
-          users =await userModel.find({firstName:{$regex:query?.filter}},['-__v'])
+         
+         
+          users =await userModel.find({userName:{$regex:query?.filter}},['-__v'])
           
         }else{
           

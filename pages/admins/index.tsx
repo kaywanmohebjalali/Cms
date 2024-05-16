@@ -21,11 +21,11 @@ export async function getServerSideProps(context: any) {
   const { query } = context
   try {
     connectToDB()
-   
+    
     let users: any
     if (Object.keys(query).length) {
-
-      users = await userModel.find({ firstName: { $regex: query?.filter } });
+      
+      users = await userModel.find({ userName: { $regex: query?.filter } });
 
     } else {
 
