@@ -3,6 +3,8 @@ import { NextApiRequest, NextApiResponse } from "next";
 import connectToDB from "../../../utils/db";
 import userModel from '../../../models/users'
 import userValidate from "@/validator/user";
+import { generateToken, hashPassword } from "@/utils/auth";
+import { serialize } from "cookie";
 
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -27,13 +29,26 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     // exist user check
     const isUserExist = await userModel.findOne({$or:[ {userName},{ email }]})
     if (isUserExist) return res.status(409).json({ message: "this username or email exist already" });
+  
+
+    // hash password
+    let hashedPassword= await hashPassword(password)
+  
+    // create user
+    const user = await userModel.create({ firstName, lastName, userName, email, password:hashedPassword, userImage, role:'admin' })
+
+
+    // create token
+    const token = generateToken({email})
+    
 
 
 
-    const user = await userModel.create({ firstName, lastName, userName, email, password, userImage, role:'admin' })
-
-
-    if (user) return res.status(201).json({ message: "create new user", user: user });
+    // set-cookie
+    if (user) return res.
+    setHeader('Set-Cookie', serialize('token',token,{httpOnly:true,path:'/',maxAge:60*60*24})).
+    status(201).
+    json({ message: "create new user", user: user });
 
 
     return res.status(500).json({ message: "error create new user in server" });
