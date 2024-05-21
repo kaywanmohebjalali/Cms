@@ -2,7 +2,7 @@ import React from 'react'
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faFile, faKey,  faUser,  } from '@fortawesome/free-solid-svg-icons';
+import {  faKey,  faUser,  } from '@fortawesome/free-solid-svg-icons';
 config.autoAddCss = false;
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2'
@@ -10,9 +10,9 @@ import Swal from 'sweetalert2'
 import styled from '@/styles/FormTeachers.module.scss'
 import { useRouter } from 'next/router';
 import Spinner from '../spinner/Spinner';
-import { ActionType, useStore } from '@/utils/store';
-import { StateType } from '@/utils/store';
-import { createAdmin, updateAdmin } from '@/services/apiAuth';
+import {useStore } from '@/utils/store';
+import { login } from '@/services/apiAuth';
+
 
 
 
@@ -25,11 +25,8 @@ interface typeLogin {
 
 
 type Inputs = {
-  fullName: string,
-  email: string,
+  identifier: string,
   password: string
-  img?: string
-
 }
 
 
@@ -57,68 +54,78 @@ const LoginForm = ({ title, textButton, user }: { title: String, textButton: Str
 
   async function onSubmit(data: any) {
 
-  //   try {
-  //     const { fullName,  password } = data
+    try {
+      const { identifier,  password } = data
 
 
-  //         let response: any = ''
-  //         setLoading(true)
-  //         if (update) {
-  //           if (img[0]) {
+          let response: any = ''
+          setLoading(true)
+    
 
-  //             response = await updateAdmin({ fullName, email, password,  adminImage, _id: admin?._id }) as any
-  //           } else {
-
-  //             response = await updateAdmin({ fullName, email, password,  _id: admin?._id }) as any
-
-  //           }
-  //         } else {
-
-  //           response = await createAdmin({ fullName, email, password,  adminImage, _id: '' }) as any
-  //           reset()
-  //         }
+            response = await login({ identifier,password }) as any
+        
+         
+         
 
 
-  //         if ([200, 201].includes(response?.statusCode)) {
-  //           setLoading(false)
-  //           replace('/admins')
+          if ([200, 201].includes(response?.statusCode)) {
+            setLoading(false)
+            replace('/')
            
 
-  //           Swal.fire({
-  //             position: "center",
-  //             title: `admin ${status}  successfully`,
-  //             icon: 'success',
-  //             showConfirmButton: false,
-  //             timer: 1800
-  //           })
+            Swal.fire({
+              position: "center",
+              title: `login admin successfully`,
+              icon: 'success',
+              showConfirmButton: false,
+              timer: 2800
+            })
 
-  //         } else {
-  //           setLoading(false)
-  //           Swal.fire({
-  //             position: "center",
-  //             title: `can not admin ${status}`,
-  //             icon: 'error',
-  //             showConfirmButton: false,
-  //             timer: 1800
-  //           })
-  //         }
-  //       }
+          } else if(response?.statusCode==422) {
+            setLoading(false)
+            Swal.fire({
+              position: "center",
+              title: `${response?.data?.message}`,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 2800
+            })
+          }else if(response?.statusCode==404) {
+            setLoading(false)
+            Swal.fire({
+              position: "center",
+              title: `user don't exist with username or email`,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 2800
+            })
+          }else if(response?.statusCode==500) {
+            setLoading(false)
+            Swal.fire({
+              position: "center",
+              title: ` مشکلی پیش امده بعدا امتحان کنید`,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 2800
+            })
+          }
+        
       
 
 
 
-  //   } catch (error) {
-  //     setLoading(false)
+    } catch (error) {
+      setLoading(false)
 
-  //     Swal.fire({
-  //       position: "center",
-  //       title: 'مشکلی پیش امده',
-  //       icon: 'error',
-  //       showConfirmButton: false,
-  //       timer: 1800
-  //     })
+      Swal.fire({
+        position: "center",
+        title: 'مشکلی پیش امده',
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 1800
+      })
 
-  //   }
+    }
   }
 
 
@@ -137,8 +144,8 @@ const LoginForm = ({ title, textButton, user }: { title: String, textButton: Str
       <form className={`${styled.form}`} onSubmit={handleSubmit(onSubmit, onError)}>
         <h3 className={`${styled.title}`}>{title}</h3>
 
-        {errors?.fullName?.message && <p className={`${styled.error}`}>{errors?.fullName?.message}</p>}
-       <label htmlFor="fullName">
+        {errors?.identifier?.message && <p className={`${styled.error}`}>{errors?.identifier?.message}</p>}
+       <label htmlFor="identifier">
 
         
           <FontAwesomeIcon
@@ -146,22 +153,22 @@ const LoginForm = ({ title, textButton, user }: { title: String, textButton: Str
             className={`${styled.icon}`}
             
             />
-          <input  id='fullName' 
-          {...register("fullName", {
-            required: 'نام ادمین رو وارد کنید',
+          <input  id='identifier' 
+          {...register("identifier", {
+            required: ' ایمیل یا نام کاربری  رو وارد کنید',
             validate: (value) => {
               
               return (
                 value?.length > 1 ||
-                "باید نام ادمین بیشتر از 1 حرف باشد"
+                "باید ایمیل یا نام کاربری  ادمین بیشتر از 1 حرف باشد"
 
               );
             },
             min: {
               value: 2,
-              message: "باید نام ادمین بیشتر از 1 حرف باشد"
+              message: "باید ایمیل یا نام کاربری ادمین بیشتر از 1 حرف باشد"
             }
-          })} type="text" placeholder='نام ادمین رو وارد کنید' defaultValue={(user as any)?.fullName} />
+          })} type="text" placeholder=' ایمیل یا نام کاربری  رو وارد کنید' defaultValue={(user as any)?.identifier} />
        
           </label >
 

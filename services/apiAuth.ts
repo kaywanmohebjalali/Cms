@@ -112,6 +112,30 @@ export async function deleteAdmin(id: any) {
 }
 
 
+export async function login(dataLogin:{identifier:string,password:string}) {
+
+
+    try {
+        
+        const response = await fetch(`/api/auth/signin`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dataLogin)
+        });
+
+        const data = await response.json()
+
+        return { data, statusCode: response?.status }
+    } catch (error) {
+        throw new Error(`error login admin : ${error}`)
+    }
+
+}
+
+
 
 
 

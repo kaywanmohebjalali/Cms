@@ -116,14 +116,32 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
               timer: 1800
             })
 
-          } else {
+          } else if(response.statusCode==409) {
             setLoading(false)
             Swal.fire({
               position: "center",
-              title: `can not admin ${statusForm}`,
+              title: `this username or email exist already`,
               icon: 'error',
               showConfirmButton: false,
-              timer: 1800
+              timer: 3800
+            })
+          }else if(response.statusCode==422) {
+            setLoading(false)
+            Swal.fire({
+              position: "center",
+              title: `not valid data`,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 3800
+            })
+          }else if(response.statusCode==500) {
+            setLoading(false)
+            Swal.fire({
+              position: "center",
+              title: `There is an error, please try again later`,
+              icon: 'error',
+              showConfirmButton: false,
+              timer: 3800
             })
           }
         }

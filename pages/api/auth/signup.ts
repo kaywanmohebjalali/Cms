@@ -16,39 +16,51 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const { firstName, lastName, userName, email, password, userImage = '' } = req.body;
+    const { firstName, lastName, userName, email, password, userImage = ''} = req.body;
 
 
 
-  // validation 
+    // validation 
     const resultValidation = userValidate(req.body)
     if (resultValidation !== true) return res.status(422).json(resultValidation);
 
 
 
     // exist user check
-    const isUserExist = await userModel.findOne({$or:[ {userName},{ email }]})
+    const isUserExist = await userModel.findOne({ $or: [{ userName }, { email }] })
     if (isUserExist) return res.status(409).json({ message: "this username or email exist already" });
-  
+
 
     // hash password
-    let hashedPassword= await hashPassword(password)
-  
+    let hashedPassword = await hashPassword(password)
+
+
+        
+    const users =await userModel.find({})
+
     // create user
-    const user = await userModel.create({ firstName, lastName, userName, email, password:hashedPassword, userImage, role:'admin' })
+    const user = await userModel.create({
+      firstName,
+      lastName,
+      userName,
+      email,
+      password: hashedPassword,
+      userImage,
+      role: users.length > 0 ? 'admin' : 'superAdmin'
+    })
 
 
     // create token
-    const token = generateToken({email})
-    
+    const token = generateToken({ email })
+
 
 
 
     // set-cookie
     if (user) return res.
-    setHeader('Set-Cookie', serialize('token',token,{httpOnly:true,path:'/',maxAge:60*60*24})).
-    status(201).
-    json({ message: "create new user", user: user });
+      setHeader('Set-Cookie', serialize('token', token, { httpOnly: true, path: '/', maxAge: 60 * 60 * 24 })).
+      status(201).
+      json({ message: "create new user", user: user });
 
 
     return res.status(500).json({ message: "error create new user in server" });

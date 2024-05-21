@@ -1,10 +1,10 @@
-import AdminForm from '@/components/modules/formUsers/AdminForm'
+import UserForm from '@/components/modules/formUsers/UserForm'
 import React from 'react'
 
 const Register = () => {
   return (
     <div className=''>
-    <AdminForm  status='create' title='اطلاعات ادمین رو وارد کنید' textButton='اضافه کردن ادمین'/>
+    <UserForm  statusForm='create' title='اطلاعات ادمین رو وارد کنید' textButton='اضافه کردن ادمین'/>
     </div>
   )
 }

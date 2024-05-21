@@ -20,7 +20,7 @@ const Sidebar = () => {
       <Logo />
 
       <div className={`${styled.items}`}>
-        <Link href='/courses'>
+       {!['/register','/login']?.includes(asPath)? <Link href='/courses'>
 
           <div className={`${styled.item} ${asPath?.includes('courses') ? styled.active : ''}`}>
             <span className={`${styled.point}  ${asPath?.includes('courses') ? styled.activePoint : ''}`}></span>
@@ -30,11 +30,11 @@ const Sidebar = () => {
 
             <p className={`${styled.title}`}> دوره ها</p>
           </div>
-        </Link>
+        </Link>:''}
 
         <Link href={`${['/login', '/register']?.includes(asPath)?'/login':'/admins'}`}>
-          <div className={`${styled.item} ${asPath?.includes('admins') ? styled.active : ''}`}>
-            <span className={`${styled.point} ${asPath?.includes('admins') ? styled.activePoint : ''}`}></span>
+          <div className={`${styled.item} ${['/admins','/login']?.includes(asPath)  ? styled.active : ''}`}>
+            <span className={`${styled.point} ${['/admins','/login']?.includes(asPath) ? styled.activePoint : ''}`}></span>
             <FontAwesomeIcon
               icon={faUserTie}
             />
@@ -51,8 +51,8 @@ const Sidebar = () => {
 
 
         <Link href={`${['/login', '/register']?.includes(asPath)?'/register':'/teachers'}`}>
-          <div className={`${styled.item} ${asPath?.includes('teachers') ? styled.active : ''}`}>
-            <span className={`${styled.point} ${asPath?.includes('teachers') ? styled.activePoint : ''}`}></span>
+          <div className={`${styled.item} ${['/teachers','/register']?.includes(asPath) ? styled.active : ''}`}>
+            <span className={`${styled.point} ${['/teachers','/register']?.includes(asPath)  ? styled.activePoint : ''}`}></span>
             <FontAwesomeIcon
               icon={faPersonChalkboard}
             />
