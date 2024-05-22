@@ -8,7 +8,6 @@ import { typeUser } from '@/interfaces/user'
 
 
 const UserItem = (user:typeUser) => {
-console.log(user);
 
   
   return (

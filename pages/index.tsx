@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const Home = () => {
   const {replace}=useRouter()
-  useEffect(()=>{replace('/courses')})
+  useEffect(()=>{replace('/dashboard')})
 
   return <section className="container main">
      <Spinner/>

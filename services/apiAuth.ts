@@ -24,11 +24,11 @@ export async function getUsers(filter: String | undefined) {
 
 
 
-export async function getMe(id: any) {
+export async function getMe() {
 
 
     try {
-        const response = await fetch(`/api/auth/${id}`);
+        const response = await fetch(`/api/auth/me`);
 
         const data = await response.json()
 
@@ -74,7 +74,7 @@ export async function updateUser(user: typeUser) {
   
   
     try {
-        const response = await fetch(`/api/auth/${user?._id}`, {
+        const response = await fetch(`/api/auth/me`, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -94,11 +94,11 @@ export async function updateUser(user: typeUser) {
 
 
 
-export async function deleteAdmin(id: any) {
+export async function deleteAdmin() {
 
 
     try {
-        const response = await fetch(`/api/auth/${id}`, {
+        const response = await fetch(`/api/auth/me`, {
             method: 'DELETE',
         });
 
@@ -113,8 +113,6 @@ export async function deleteAdmin(id: any) {
 
 
 export async function login(dataLogin:{identifier:string,password:string}) {
-
-
     try {
         
         const response = await fetch(`/api/auth/signin`, {
