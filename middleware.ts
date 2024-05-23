@@ -1,9 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import userModel from '@/models/users'
 
-import { verifyToken } from './utils/auth';
-import { verify } from "jsonwebtoken";
 
 export async function middleware(request: NextRequest) {
      const token=request.cookies.get('token');

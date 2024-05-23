@@ -67,9 +67,6 @@ export async function createUser(user: typeUser) {
 
 
 
-
-
-
 export async function updateUser(user: typeUser) {
   
   
@@ -129,6 +126,20 @@ export async function login(dataLogin:{identifier:string,password:string}) {
         return { data, statusCode: response?.status }
     } catch (error) {
         throw new Error(`error login admin : ${error}`)
+    }
+
+}
+
+
+export async function logout() {
+    try {
+        
+        const response = await fetch(`/api/auth/signout`)
+        const data = await response.json()
+
+        return { data, statusCode: response?.status }
+    } catch (error) {
+        throw new Error(`error logout admin : ${error}`)
     }
 
 }

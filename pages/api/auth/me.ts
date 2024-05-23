@@ -37,19 +37,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     else if (req.method == "PUT") {
         try {
             const { firstName, lastName, userName, email:newEmail, password, userImage, role } = req.body;
-
+            
             const resultValidation = userValidate(req.body)
-
+            
             if (resultValidation !== true) return res.status(422).json(resultValidation);
-
+            
             const isUser = await userModel.findOne({ email})
             if (!isUser)
                 return res.status(404).json({ message: `user not found with id=${email}` });
-
-
-
+            
+            
+            
             const updateUser = await userModel.findOneAndUpdate({ email }, { firstName, lastName, userName, email:newEmail, password, userImage, role })
-
+       
 
             if (updateUser) return res.status(200).json({ message: `update user with id=${email}` });
 
@@ -58,6 +58,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
                 .json({ message: `error update user with id=${email}` });
 
         } catch (error) {
+            
             return res.status(500).json({ message: error });
 
         }

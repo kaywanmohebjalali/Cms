@@ -39,18 +39,21 @@ async function handler(req:NextApiRequest, res:NextApiResponse){
      try {
       const { courseName, coursePrice, teacherId, courseImage=''} = req.body;
      
-    console.log(teacherId);
     
-      
+    
+      // validation id
       if (!isValidObjectId(teacherId))  return res.status(422).json({ message: `teacher is not valid` });
       
+      // check exist user
+      const checkCourse= await courseModel.findOne({courseName:courseName})
+      if(checkCourse)return res.status(409).json({ message: "There is a course on the database"});
+            
+     // validation data
       const resultValidation= courseValidate(req.body)
       if (resultValidation!==true) return res.status(422).json(resultValidation);
       
-      
-      const checkCourse= await courseModel.findOne({courseName:courseName})
-      
-      if(checkCourse)return res.status(409).json({ message: "There is a course on the database"});
+
+     
       
       
       

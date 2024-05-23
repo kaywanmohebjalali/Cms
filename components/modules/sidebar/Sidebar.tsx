@@ -9,6 +9,7 @@ import { faBookOpen, faDashboard, faLock, faPersonChalkboard, faUserTie } from '
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { getMe } from '@/services/apiAuth';
+import Logout from '../logout/Logout';
 config.autoAddCss = false;
 
 
@@ -114,7 +115,7 @@ const Sidebar = () => {
           <FontAwesomeIcon
             icon={faLock}
           />
-          <p className={`${styled.title}`}>خروج</p>
+          <p className={`${styled.title}`}><Logout/></p>
         </div> : ''}
 
 
