@@ -109,7 +109,7 @@ export async function deleteAdmin() {
 }
 
 
-export async function login(dataLogin:{identifier:string,password:string}) {
+export async function login(dataLogin:{identifier:string,password:string,remember:boolean}) {
     try {
         
         const response = await fetch(`/api/auth/signin`, {

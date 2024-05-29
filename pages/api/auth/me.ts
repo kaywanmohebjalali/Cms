@@ -15,7 +15,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     const { email } = tokenPayload as { email: string }
     if (req.method == "GET") {
         try {
-
+ 
+  
 
             if (!token || !tokenPayload) return res.status(401).json({ message: "user not login" })
               

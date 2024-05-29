@@ -6,6 +6,7 @@ import Users from '@/components/templates/Users/Users';
 import { verifyToken } from '@/utils/auth';
 
 const AdminPage = ({ users, error }: { users: [], error: any }) => {
+
   
   return <section className="container main">
     <div className="top-main">
@@ -19,6 +20,7 @@ const AdminPage = ({ users, error }: { users: [], error: any }) => {
 export default AdminPage;
 
 export async function getServerSideProps(context: any) {
+  
   const { query } = context
   try {
     connectToDB()

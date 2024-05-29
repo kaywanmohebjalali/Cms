@@ -5,6 +5,7 @@ import Teachers from '@/components/templates/Teachers/Teachers';
 import AddTeacher from '@/components/modules/addTeacher/AddTeacher';
 
 const TeacherPage = ({ teachers, error }: { teachers: [], error: any }) => {
+  console.log('teachers');
   
   return <section className="container main">
     <div className="top-main">

@@ -1,16 +1,31 @@
+import { getMe } from '@/services/apiAuth'
 import { useStore } from '@/utils/store'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const User = () => {
-  const user = useStore((state: any) => state.user)
+  const person = useStore((state: any) => state.user)
+  const [user , setUser]=useState(person)
+
  
 
-  
+useEffect(()=>{
+  async function getDate() {
+    const {data}=await getMe()
+    setUser(data?.user)
+
+  }
+  if(Object.keys(person).length<1)getDate()
+},[person])
+ 
+
 
   return (
     <section className='user'>
+    {user?.userImage&& <>
        <p className='first-name'>{user?.firstName}</p>
-        <img className='img-user' src={`${user?.userImage}`} alt="" />
+     <img className='img-user' src={`${user?.userImage}`} alt="" />
+    </>
+     }
     </section>
   )
 }

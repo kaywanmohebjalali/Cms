@@ -5,7 +5,8 @@ import Navbar from "@/components/modules/navbar/Navbar";
 
 
 export default function App({ Component, pageProps }: AppProps) {
-  
+
+
   return <section className="app " >
 
     <div className="app-Sidebar ">
@@ -20,3 +21,4 @@ export default function App({ Component, pageProps }: AppProps) {
 
   </section>
 }
+

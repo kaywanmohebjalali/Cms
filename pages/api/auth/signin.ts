@@ -15,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    const { identifier, password} = req.body;
+    const { identifier, password,remember} = req.body;
 
 
   
@@ -45,9 +45,12 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     // set-cookie
     if (token) return res.
-      setHeader('Set-Cookie', serialize('token', token, { httpOnly: true, path: '/', maxAge: 60 * 60 * 24 })).
+      setHeader('Set-Cookie', serialize('token', token, { httpOnly: true, path: '/', maxAge:remember?60*60*72:60*60})).
       status(201).
       json({ message: "login user" });
+
+
+
 
 
     return res.status(500).json({ message: "error login admin in server" });

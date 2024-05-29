@@ -17,6 +17,15 @@ gap: 1rem;
     align-items: center;
     height: 45px;
 }
+
+.form  .checkBox{
+    display: flex;
+  background-color: transparent;
+    gap: 1rem;
+    padding: 0;
+}
+
+
 .form input{
     width: 90%;
     border: none;
@@ -29,6 +38,13 @@ gap: 1rem;
         font-size: 1.2rem !important;
         
     }
+}
+.checkBox input{
+    width: auto;
+
+}
+.checkBox p{
+    font-size: 1.5rem;
 }
 
 .labelImg{
