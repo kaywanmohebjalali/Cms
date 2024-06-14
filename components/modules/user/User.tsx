@@ -14,7 +14,10 @@ useEffect(()=>{
     setUser(data?.user)
 
   }
-  if(Object.keys(person).length<1)getDate()
+  console.log('p  :',person);
+  
+  // if(Object.keys({})?.length<1)getDate()
+  if(person)getDate()
 },[person])
  
 

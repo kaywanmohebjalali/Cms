@@ -16,6 +16,7 @@ config.autoAddCss = false;
 const Sidebar = () => {
   const { asPath } = useRouter() as any
   const [user, setUser] = useState<typeUser | null>(null)
+console.log('sidebar : ',asPath);
 
   useEffect(() => {
 
@@ -43,7 +44,7 @@ const Sidebar = () => {
       <div className={`${styled.items}`}>
 
 
-        {user ? <Link href='/dashboard'>
+        {user && asPath!='/login' ? <Link href='/dashboard'>
 
           <div className={`${styled.item} ${asPath?.includes('dashboard') ? styled.active : ''}`}>
             <span className={`${styled.point}  ${asPath?.includes('dashboard') ? styled.activePoint : ''}`}></span>
@@ -56,7 +57,7 @@ const Sidebar = () => {
         </Link> : ''}
 
 
-        {user ? <Link href='/courses'>
+        {user && asPath!='/login' ? <Link href='/courses'>
 
           <div className={`${styled.item} ${asPath?.includes('courses') ? styled.active : ''}`}>
             <span className={`${styled.point}  ${asPath?.includes('courses') ? styled.activePoint : ''}`}></span>
@@ -69,7 +70,7 @@ const Sidebar = () => {
         </Link> : ''}
 
 
-        { !user ? <Link href='/login'>
+        { !user || asPath=='/login' ? <Link href='/login'>
             <div className={`${styled.item} ${'/login'?.includes(asPath) ? styled.active : ''}`}>
               <span className={`${styled.point} ${'/login'?.includes(asPath) ? styled.activePoint : ''}`}></span>
               <FontAwesomeIcon

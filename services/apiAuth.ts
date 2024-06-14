@@ -42,7 +42,6 @@ export async function getMe() {
 
 
 export async function createUser(user: typeUser) {
-
     try {
         const response = await fetch(`/api/auth/signup`, {
             method: 'POST',
@@ -91,11 +90,31 @@ export async function updateUser(user: typeUser) {
 
 
 
-export async function deleteAdmin() {
+// export async function deleteAdmin() {
 
+
+//     try {
+//         const response = await fetch(`/api/auth/me`, {
+//             method: 'DELETE',
+//         });
+
+//         const data = await response.json()
+
+//         return { data: data, statusCode: response?.status }
+//     } catch (error) {
+//         throw new Error(`error delete user : ${error}`)
+//     }
+
+// }
+
+
+export async function deleteAdmin(id:any) {
+
+
+    
 
     try {
-        const response = await fetch(`/api/auth/me`, {
+        const response = await fetch(`/api/auth/${id}`, {
             method: 'DELETE',
         });
 

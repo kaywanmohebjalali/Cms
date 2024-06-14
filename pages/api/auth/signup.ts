@@ -15,8 +15,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     return false
   }
 
+
   try {
-    const { firstName, lastName, userName, email, password, userImage = ''} = req.body;
+    const { firstName, lastName, userName, email, password, userImage = '' } = req.body;
 
 
 
@@ -35,8 +36,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     let hashedPassword = await hashPassword(password)
 
 
-        
-    const users =await userModel.find({})
+
+    const users = await userModel.find({})
 
     // create user
     const user = await userModel.create({
@@ -57,10 +58,19 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
 
     // set-cookie
-    if (user) return res.
-      setHeader('Set-Cookie', serialize('token', token, { httpOnly: true, path: '/', maxAge: 60 * 60 * 24 })).
+    if (user && user?.role=='superAdmin') {
+
+      return res.
+        setHeader('Set-Cookie', serialize('token', token, { httpOnly: true, path: '/', maxAge: 60 * 60 * 24 })).
+        status(201).
+        json({ message: "create new user", user: user });
+    } else if(user && user?.role=='admin') {
+      return res.
       status(201).
       json({ message: "create new user", user: user });
+    }
+
+
 
 
     return res.status(500).json({ message: "error create new user in server" });

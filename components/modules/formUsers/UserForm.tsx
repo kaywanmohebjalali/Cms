@@ -97,7 +97,8 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
 
             }
           } else {
-
+          
+            
             response = await createUser({ firstName, lastName, userName, email, password, userImage, _id: '', role: 'admin' }) as any
           }
           
@@ -105,8 +106,9 @@ const UserForm = ({ title, textButton, statusForm, user }: { title: String, text
           if ([200, 201].includes(response?.statusCode)) {
             reset()
             setLoading(false)
-            replace('/admins')
-
+            
+              replace('/admins')
+              
 
             Swal.fire({
               position: "center",
